@@ -143,7 +143,7 @@ const About = () => {
                   repeat: Infinity, 
                   ease: "easeInOut" 
                 }}
-                className="w-64 h-64 bg-gradient-to-br from-[#842A3B] to-[#6d2230] rounded-3xl relative overflow-hidden shadow-2xl"
+                className="w-75 h-75 bg-gradient-to-br from-[#842A3B] to-[#6d2230] rounded-3xl relative overflow-hidden shadow-2xl"
               >
                 {/* Inner geometric pattern */}
                 <motion.div
@@ -184,12 +184,8 @@ const About = () => {
                 
                 {/* Placeholder text */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.span 
-                    animate={{ opacity: [0.7, 1, 0.7] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="text-[#F5DAA7] font-medium text-sm"
-                  >
-                   
+                  <motion.span >
+                   <img className='' src="https://i.ibb.co.com/bMMcGjrb/Whats-App-Image-2025-12-21-at-2-19-42.jpg" alt="" />
                   </motion.span>
                 </div>
               </motion.div>
