@@ -34,7 +34,7 @@ const Skills = () => {
         "MongoDB",
         "MySQL",
         "Mongoose",
-        "Prisma"
+        "SQlite"
       ]
     },
     {
@@ -44,7 +44,9 @@ const Skills = () => {
       skills: [
         "Git & GitHub",
         "Axios",
+        "TenStack Query",
         "Firebase",
+        "Framer Motion",
         "Deployment (Vercel, Netlify, Render)"
       ]
     }
