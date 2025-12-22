@@ -80,11 +80,29 @@ const Hero = () => {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          whileHover={{ scale: 1.1 }}
-          className="text-2xl font-bold text-[#F5DAA7] tracking-wider cursor-pointer"
+          whileHover={{ 
+            scale: 1.1,
+            rotate: [0, -5, 5, 0],
+            textShadow: "0 0 20px rgba(245, 218, 167, 0.8)"
+          }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ 
+            type: "spring", 
+            stiffness: 300, 
+            damping: 15,
+            rotate: { duration: 0.5 }
+          }}
+          className="relative text-2xl font-bold text-[#F5DAA7] tracking-wider cursor-pointer group"
         >
-          TH
+          {/* Glow effect behind logo */}
+          <motion.div
+            className="absolute inset-0 bg-[#F5DAA7] rounded-full opacity-0 group-hover:opacity-20 blur-xl"
+            whileHover={{ scale: 1.5 }}
+            transition={{ duration: 0.3 }}
+          />
+          <span className="relative z-10">TH</span>
         </motion.div>
+        
         <div className="hidden md:flex space-x-12">
           {['About', 'Work', 'Contact'].map((item, index) => (
             <motion.a
@@ -92,11 +110,33 @@ const Hero = () => {
               href={`#${item.toLowerCase()}`}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-              whileHover={{ y: -2, color: '#F5DAA7' }}
-              className="text-white hover:text-[#F5DAA7] transition-colors duration-300 font-light tracking-wide"
+              transition={{ duration: 0.1 }}
+              whileHover={{ 
+                y: -3, 
+                color: '#F5DAA7',
+                textShadow: "0 5px 15px rgba(245, 218, 167, 0.5)",
+                scale: 1.05
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="relative text-white font-light tracking-wide cursor-pointer group overflow-hidden"
             >
-              {item}
+              {/* Underline animation */}
+              <motion.div
+                className="absolute bottom-0 left-0 h-0.5 bg-[#F5DAA7] opacity-0 group-hover:opacity-100"
+                initial={{ width: 0 }}
+                whileHover={{ width: '100%' }}
+                transition={{ duration: 0.3 }}
+              />
+              
+              {/* Background highlight */}
+              <motion.div
+                className="absolute inset-0 bg-[#F5DAA7] opacity-0 group-hover:opacity-10 rounded"
+                initial={{ scale: 0 }}
+                whileHover={{ scale: 1 }}
+                transition={{ duration: 0.2 }}
+              />
+              
+              <span className="relative z-10">{item}</span>
             </motion.a>
           ))}
         </div>
@@ -144,21 +184,109 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.3 }}
-            className="flex space-x-6"
+            className="flex space-x-4"
           >
             <motion.button
-              whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(132, 42, 59, 0.3)" }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-[#842A3B] text-white px-8 py-4 font-medium tracking-wide hover:bg-[#6d2230] transition-colors duration-300 border border-[#842A3B]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              whileHover={{ 
+                scale: 1.05, 
+                boxShadow: "0 15px 35px rgba(132, 42, 59, 0.4)",
+                y: -2
+              }}
+              whileTap={{ scale: 0.95, y: 0 }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 300, 
+                damping: 20 
+              }}
+              className="relative bg-[#842A3B] text-white px-6 py-3 font-medium tracking-wide border border-[#842A3B] overflow-hidden group"
             >
-              VIEW WORK
+              {/* Animated background overlay */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-[#6d2230] to-[#842A3B] opacity-0 group-hover:opacity-100"
+                initial={{ x: '-100%' }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+              
+              {/* Shimmer effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20"
+                initial={{ x: '-100%', skewX: -45 }}
+                whileHover={{ x: '200%' }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              />
+              
+              <span className="relative z-10">VIEW WORK</span>
             </motion.button>
+            
             <motion.button
-              whileHover={{ scale: 1.05, backgroundColor: '#F5DAA7', color: '#000000' }}
-              whileTap={{ scale: 0.95 }}
-              className="border border-[#F5DAA7] text-[#F5DAA7] px-8 py-4 font-medium tracking-wide transition-all duration-300"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              whileHover={{ 
+                scale: 1.05,
+                backgroundColor: '#F5DAA7',
+                color: '#000000',
+                borderColor: '#F5DAA7',
+                boxShadow: "0 15px 35px rgba(245, 218, 167, 0.3)",
+                y: -2
+              }}
+              whileTap={{ scale: 0.95, y: 0 }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 300, 
+                damping: 20,
+                backgroundColor: { duration: 0.2 },
+                color: { duration: 0.2 }
+              }}
+              className="relative border-2 border-[#F5DAA7] text-[#F5DAA7] px-6 py-3 font-medium tracking-wide overflow-hidden group"
             >
-              GET IN TOUCH
+              {/* Animated border glow */}
+              <motion.div
+                className="absolute inset-0 border-2 border-[#F5DAA7] opacity-0 group-hover:opacity-100"
+                animate={{ 
+                  boxShadow: [
+                    "0 0 0px rgba(245, 218, 167, 0)",
+                    "0 0 20px rgba(245, 218, 167, 0.5)",
+                    "0 0 0px rgba(245, 218, 167, 0)"
+                  ]
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              
+              {/* Fill animation */}
+              <motion.div
+                className="absolute inset-0 bg-[#F5DAA7] opacity-0 group-hover:opacity-100"
+                initial={{ scale: 0, borderRadius: '50%' }}
+                whileHover={{ scale: 1.5, borderRadius: '0%' }}
+                transition={{ duration: 0.4 }}
+              />
+              
+              {/* Particle effect */}
+              {[...Array(6)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1 h-1 bg-[#F5DAA7] rounded-full opacity-0 group-hover:opacity-100"
+                  style={{
+                    top: `${20 + Math.random() * 60}%`,
+                    left: `${10 + Math.random() * 80}%`,
+                  }}
+                  animate={{
+                    y: [-10, -20, -10],
+                    opacity: [0, 1, 0],
+                    scale: [0, 1, 0]
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    delay: i * 0.1,
+                    ease: "easeInOut"
+                  }}
+                />
+              ))}
+              
+              <span className="relative z-10">GET IN TOUCH</span>
             </motion.button>
           </motion.div>
         </div>
