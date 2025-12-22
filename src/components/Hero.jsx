@@ -1,12 +1,30 @@
 import { motion } from 'framer-motion'
 
+// Smooth easing curve for all animations
+const smoothEase = [0.25, 0.1, 0.25, 1]
+
+// Smooth scroll function with animation preservation
+const scrollToSection = (sectionId) => {
+  const element = document.getElementById(sectionId)
+  if (element) {
+    // Use requestAnimationFrame to ensure smooth scrolling doesn't interfere with animations
+    requestAnimationFrame(() => {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+    })
+  }
+}
+
 const Hero = () => {
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Geometric Background Elements */}
-      <div className="absolute inset-0">
+    <div id="home" className="min-h-screen bg-black relative overflow-hidden">
+      {/* Geometric Background Elements - Isolated animations */}
+      <div className="absolute inset-0 pointer-events-none">
         {/* Large accent shape - Continuous rotation and scale */}
         <motion.div 
+          key="hero-accent-shape"
           initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
           animate={{ 
             opacity: 0.2, 
@@ -15,15 +33,27 @@ const Hero = () => {
           }}
           transition={{ 
             opacity: { duration: 1.5, ease: "easeOut" },
-            scale: { duration: 1.5, ease: "easeOut" },
-            scale: { duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 },
-            rotate: { duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }
+            scale: { 
+              duration: 12, 
+              repeat: Infinity, 
+              ease: "easeInOut", 
+              delay: 2,
+              repeatType: "loop"
+            },
+            rotate: { 
+              duration: 15, 
+              repeat: Infinity, 
+              ease: "easeInOut", 
+              delay: 2,
+              repeatType: "loop"
+            }
           }}
           className="absolute top-20 right-20 w-96 h-96 bg-[#842A3B] transform rounded-3xl"
         ></motion.div>
         
         {/* Secondary accent - Continuous pulsing and floating */}
         <motion.div 
+          key="hero-secondary-accent"
           initial={{ opacity: 0, scale: 0 }}
           animate={{ 
             opacity: [0.1, 0.15, 0.1], 
@@ -32,18 +62,41 @@ const Hero = () => {
             x: [0, 5, 0]
           }}
           transition={{ 
-            opacity: { duration: 1.2, delay: 0.3, ease: "easeOut" },
-            scale: { duration: 1.2, delay: 0.3, ease: "easeOut" },
-            opacity: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2.5 },
-            scale: { duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2.5 },
-            y: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 3 },
-            x: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 3.5 }
+            opacity: { 
+              duration: 8, 
+              repeat: Infinity, 
+              ease: "easeInOut", 
+              delay: 2.5,
+              repeatType: "loop"
+            },
+            scale: { 
+              duration: 10, 
+              repeat: Infinity, 
+              ease: "easeInOut", 
+              delay: 2.5,
+              repeatType: "loop"
+            },
+            y: { 
+              duration: 6, 
+              repeat: Infinity, 
+              ease: "easeInOut", 
+              delay: 3,
+              repeatType: "loop"
+            },
+            x: { 
+              duration: 7, 
+              repeat: Infinity, 
+              ease: "easeInOut", 
+              delay: 3.5,
+              repeatType: "loop"
+            }
           }}
           className="absolute bottom-32 left-16 w-64 h-64 bg-[#F5DAA7] rounded-full"
         ></motion.div>
         
         {/* Sharp lines - Continuous pulsing */}
         <motion.div 
+          key="hero-line-1"
           initial={{ scaleX: 0 }}
           animate={{ 
             scaleX: 1,
@@ -51,11 +104,18 @@ const Hero = () => {
           }}
           transition={{ 
             scaleX: { duration: 1.5, delay: 0.8, ease: "easeInOut" },
-            opacity: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 2 }
+            opacity: { 
+              duration: 4, 
+              repeat: Infinity, 
+              ease: "easeInOut", 
+              delay: 2,
+              repeatType: "loop"
+            }
           }}
           className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#842A3B] to-transparent origin-center"
         ></motion.div>
         <motion.div 
+          key="hero-line-2"
           initial={{ scaleX: 0 }}
           animate={{ 
             scaleX: 1,
@@ -63,54 +123,71 @@ const Hero = () => {
           }}
           transition={{ 
             scaleX: { duration: 1.5, delay: 1, ease: "easeInOut" },
-            opacity: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2.5 }
+            opacity: { 
+              duration: 5, 
+              repeat: Infinity, 
+              ease: "easeInOut", 
+              delay: 2.5,
+              repeatType: "loop"
+            }
           }}
           className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#F5DAA7] to-transparent origin-center"
         ></motion.div>
       </div>
 
-      {/* Navigation */}
+      {/* Hero Navigation - Enhanced visibility */}
       <motion.nav 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
+        transition={{ duration: 0.8, delay: 0.2, ease: smoothEase }}
         className="relative z-10 flex justify-between items-center p-8"
       >
-        <motion.div 
+        <motion.button
+          onClick={() => scrollToSection('home')}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ 
+            duration: 0.6, 
+            delay: 0.4, 
+            ease: smoothEase,
+            type: "spring", 
+            stiffness: 300, 
+            damping: 15
+          }}
           whileHover={{ 
             scale: 1.1,
-            rotate: [0, -5, 5, 0],
             textShadow: "0 0 20px rgba(245, 218, 167, 0.8)"
           }}
           whileTap={{ scale: 0.95 }}
-          transition={{ 
-            type: "spring", 
-            stiffness: 300, 
-            damping: 15,
-            rotate: { duration: 0.5 }
-          }}
-          className="relative text-2xl font-bold text-[#F5DAA7] tracking-wider cursor-pointer group"
+          className="relative text-2xl font-bold text-[#F5DAA7] tracking-wider cursor-pointer group bg-transparent border-none isolate"
+          style={{ isolation: 'isolate' }}
         >
-          {/* Glow effect behind logo */}
+          {/* Enhanced glow effect behind logo - isolated */}
           <motion.div
-            className="absolute inset-0 bg-[#F5DAA7] rounded-full opacity-0 group-hover:opacity-20 blur-xl"
+            className="absolute inset-0 bg-[#F5DAA7] rounded-full opacity-0 group-hover:opacity-20 blur-xl pointer-events-none"
             whileHover={{ scale: 1.5 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, type: "tween" }}
+            style={{ isolation: 'isolate' }}
           />
-          <span className="relative z-10">TH</span>
-        </motion.div>
+          <span className="relative z-10 drop-shadow-lg">TH</span>
+        </motion.button>
         
-        <div className="hidden md:flex space-x-12">
-          {['About', 'Work', 'Contact'].map((item, index) => (
-            <motion.a
-              key={item}
-              href={`#${item.toLowerCase()}`}
+        {/* Enhanced navigation menu for hero */}
+        <div className="hidden md:flex space-x-8">
+          {[
+            { name: 'Home', id: 'home' },
+            { name: 'About Me', id: 'about' },
+            { name: 'Skills', id: 'skills' },
+            { name: 'Projects', id: 'work' },
+            { name: 'Experience', id: 'experience' },
+            { name: 'Contact Me', id: 'contact' },
+          ].map((item) => (
+            <motion.button
+              key={item.name}
+              onClick={() => scrollToSection(item.id)}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.5 + (item.name.length * 0.02) }}
               whileHover={{ 
                 y: -3, 
                 color: '#F5DAA7',
@@ -118,28 +195,40 @@ const Hero = () => {
                 scale: 1.05
               }}
               whileTap={{ scale: 0.95 }}
-              className="relative text-white font-light tracking-wide cursor-pointer group overflow-hidden"
+              className="relative font-light tracking-wide cursor-pointer group overflow-hidden bg-transparent border-none transition-colors duration-300 text-white hover:text-[#F5DAA7]"
             >
-              {/* Underline animation */}
+              {/* Enhanced underline animation */}
               <motion.div
-                className="absolute bottom-0 left-0 h-0.5 bg-[#F5DAA7] opacity-0 group-hover:opacity-100"
+                className="absolute bottom-0 left-0 h-0.5 bg-[#F5DAA7]"
                 initial={{ width: 0 }}
-                whileHover={{ width: '100%' }}
+                whileHover={{ width: '100%', opacity: 1 }}
                 transition={{ duration: 0.3 }}
               />
               
               {/* Background highlight */}
               <motion.div
-                className="absolute inset-0 bg-[#F5DAA7] opacity-0 group-hover:opacity-10 rounded"
+                className="absolute inset-0 bg-[#F5DAA7] rounded"
                 initial={{ scale: 0 }}
-                whileHover={{ scale: 1 }}
+                whileHover={{ scale: 1, opacity: 0.1 }}
                 transition={{ duration: 0.2 }}
               />
               
-              <span className="relative z-10">{item}</span>
-            </motion.a>
+              <span className="relative z-10 px-2 py-1 drop-shadow-sm">{item.name}</span>
+            </motion.button>
           ))}
         </div>
+
+        {/* Mobile menu button */}
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="md:hidden text-[#F5DAA7] bg-transparent border-none text-xl drop-shadow-lg"
+        >
+          ☰
+        </motion.button>
       </motion.nav>
 
       {/* Hero Content */}
@@ -150,30 +239,30 @@ const Hero = () => {
             className="text-7xl md:text-8xl font-light leading-none mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: smoothEase }}
           >
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
+              transition={{ duration: 0.8, delay: 0.7, ease: smoothEase }}
               className="text-white mb-2"
             >
-              Creative
+              Tanvir Hossain
             </motion.div>
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-              className="text-[#842A3B] font-medium"
+              transition={{ duration: 0.8, delay: 0.9, ease: smoothEase }}
+              className="text-[#842A3B] font-medium text-5xl"
             >
-              Developer
+              MERN Stack Developer
             </motion.div>
           </motion.h1>
           
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.1 }}
+            transition={{ duration: 0.8, delay: 1.1, ease: smoothEase }}
             className="text-xl text-gray-300 mb-12 max-w-lg leading-relaxed font-light"
           >
             Crafting digital experiences with precision and artistry. 
@@ -183,12 +272,13 @@ const Hero = () => {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.3 }}
+            transition={{ duration: 0.8, delay: 1.3, ease: smoothEase }}
             className="flex space-x-4"
           >
             <motion.button
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
+              onClick={() => scrollToSection('work')}
               whileHover={{ 
                 scale: 1.05, 
                 boxShadow: "0 15px 35px rgba(132, 42, 59, 0.4)",
@@ -224,6 +314,7 @@ const Hero = () => {
             <motion.button
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
+              onClick={() => scrollToSection('contact')}
               whileHover={{ 
                 scale: 1.05,
                 backgroundColor: '#F5DAA7',
@@ -295,11 +386,12 @@ const Hero = () => {
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 1.5 }}
+          transition={{ duration: 1, delay: 1.5, ease: smoothEase }}
           className="hidden lg:flex flex-1 justify-center items-center relative"
         >
           {/* Main Circle - Continuous rotation */}
           <motion.div 
+            key="hero-main-circle"
             initial={{ opacity: 0, scale: 0 }}
             animate={{ 
               opacity: 1, 
@@ -309,22 +401,39 @@ const Hero = () => {
             transition={{ 
               opacity: { duration: 1, delay: 1.7, ease: "easeOut" },
               scale: { duration: 1, delay: 1.7, ease: "easeOut" },
-              rotate: { duration: 8, repeat: Infinity, ease: "linear", delay: 1 }
+              rotate: { 
+                duration: 8, 
+                repeat: Infinity, 
+                ease: "linear", 
+                delay: 1,
+                repeatType: "loop"
+              }
             }}
             className="w-80 h-80 border border-[#F5DAA7] rounded-full relative"
           >
             {/* Inner elements - Pulsing animation */}
             <motion.div 
+              key="hero-inner-circle"
               initial={{ opacity: 0, scale: 0 }}
               animate={{ 
                 opacity: [0.8, 0.4, 0.8], 
                 scale: [1, 1.1, 1] 
               }}
               transition={{ 
-                opacity: { duration: 0.8, delay: 2, ease: "easeOut" },
-                scale: { duration: 0.8, delay: 2, ease: "easeOut" },
-                opacity: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 3 },
-                scale: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 3 }
+                opacity: { 
+                  duration: 2, 
+                  repeat: Infinity, 
+                  ease: "easeInOut", 
+                  delay: 3,
+                  repeatType: "loop"
+                },
+                scale: { 
+                  duration: 2, 
+                  repeat: Infinity, 
+                  ease: "easeInOut", 
+                  delay: 3,
+                  repeatType: "loop"
+                }
               }}
               className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-[#842A3B] rounded-full"
             ></motion.div>
@@ -337,7 +446,7 @@ const Hero = () => {
               { delay: 2.8, position: 'top-1/2 -left-4 transform -translate-y-1/2', size: 'w-5 h-5', orbitDelay: 6 }
             ].map((dot, index) => (
               <motion.div
-                key={index}
+                key={`hero-orbit-${index}`}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ 
                   opacity: 1, 
@@ -346,9 +455,20 @@ const Hero = () => {
                 }}
                 transition={{ 
                   opacity: { duration: 0.5, delay: dot.delay },
-                  scale: { duration: 0.5, delay: dot.delay },
-                  scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 3 + dot.orbitDelay },
-                  rotate: { duration: 10, repeat: Infinity, ease: "linear", delay: 3 + dot.orbitDelay }
+                  scale: { 
+                    duration: 1.5, 
+                    repeat: Infinity, 
+                    ease: "easeInOut", 
+                    delay: 3 + dot.orbitDelay,
+                    repeatType: "loop"
+                  },
+                  rotate: { 
+                    duration: 10, 
+                    repeat: Infinity, 
+                    ease: "linear", 
+                    delay: 3 + dot.orbitDelay,
+                    repeatType: "loop"
+                  }
                 }}
                 className={`absolute ${dot.position} ${dot.size} ${index % 2 === 0 ? 'bg-[#F5DAA7]' : 'bg-[#842A3B]'} rounded-full`}
               ></motion.div>
@@ -357,6 +477,7 @@ const Hero = () => {
 
           {/* Sharp geometric lines - Continuous animations */}
           <motion.div 
+            key="hero-geo-line-1"
             initial={{ scaleX: 0, opacity: 0 }}
             animate={{ 
               scaleX: 1, 
@@ -365,14 +486,26 @@ const Hero = () => {
             }}
             transition={{ 
               scaleX: { duration: 0.8, delay: 3, ease: "easeOut" },
-              opacity: { duration: 0.8, delay: 3, ease: "easeOut" },
-              opacity: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: 4 },
-              rotate: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 4 }
+              opacity: { 
+                duration: 3, 
+                repeat: Infinity, 
+                ease: "easeInOut", 
+                delay: 4,
+                repeatType: "loop"
+              },
+              rotate: { 
+                duration: 6, 
+                repeat: Infinity, 
+                ease: "easeInOut", 
+                delay: 4,
+                repeatType: "loop"
+              }
             }}
             className="absolute top-1/4 right-1/4 w-24 h-px bg-[#F5DAA7] origin-left"
           ></motion.div>
           
           <motion.div 
+            key="hero-geo-line-2"
             initial={{ scaleX: 0, opacity: 0 }}
             animate={{ 
               scaleX: 1, 
@@ -381,30 +514,53 @@ const Hero = () => {
             }}
             transition={{ 
               scaleX: { duration: 0.8, delay: 3.2, ease: "easeOut" },
-              opacity: { duration: 0.8, delay: 3.2, ease: "easeOut" },
-              opacity: { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 4.2 },
-              rotate: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 4.2 }
+              opacity: { 
+                duration: 3.5, 
+                repeat: Infinity, 
+                ease: "easeInOut", 
+                delay: 4.2,
+                repeatType: "loop"
+              },
+              rotate: { 
+                duration: 7, 
+                repeat: Infinity, 
+                ease: "easeInOut", 
+                delay: 4.2,
+                repeatType: "loop"
+              }
             }}
             className="absolute bottom-1/4 left-1/4 w-32 h-px bg-[#842A3B] origin-left"
           ></motion.div>
           
           <motion.div 
+            key="hero-geo-line-3"
             initial={{ scaleY: 0, opacity: 0 }}
             animate={{ 
               scaleY: [1, 1.5, 1], 
               opacity: [1, 0.4, 1]
             }}
             transition={{ 
-              scaleY: { duration: 0.8, delay: 3.4, ease: "easeOut" },
-              opacity: { duration: 0.8, delay: 3.4, ease: "easeOut" },
-              scaleY: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 4.4 },
-              opacity: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 4.4 }
+              scaleY: { 
+                duration: 4, 
+                repeat: Infinity, 
+                ease: "easeInOut", 
+                delay: 4.4,
+                repeatType: "loop"
+              },
+              opacity: { 
+                duration: 4, 
+                repeat: Infinity, 
+                ease: "easeInOut", 
+                delay: 4.4,
+                repeatType: "loop"
+              }
             }}
             className="absolute top-1/2 right-0 w-16 h-px bg-[#F5DAA7] transform rotate-90 origin-bottom"
           ></motion.div>
 
           {/* Additional floating elements */}
           <motion.div
+            key="hero-float-1"
             initial={{ opacity: 0 }}
             animate={{ 
               opacity: [0, 1, 0],
@@ -415,12 +571,14 @@ const Hero = () => {
               duration: 5,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: 5
+              delay: 5,
+              repeatType: "loop"
             }}
             className="absolute top-10 left-10 w-3 h-3 bg-[#F5DAA7] rounded-full"
           ></motion.div>
           
           <motion.div
+            key="hero-float-2"
             initial={{ opacity: 0 }}
             animate={{ 
               opacity: [0, 1, 0],
@@ -431,7 +589,8 @@ const Hero = () => {
               duration: 6,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: 6
+              delay: 6,
+              repeatType: "loop"
             }}
             className="absolute bottom-10 right-10 w-2 h-2 bg-[#842A3B] rounded-full"
           ></motion.div>
@@ -440,19 +599,32 @@ const Hero = () => {
 
       {/* Scroll Indicator */}
       <motion.div 
+        key="hero-scroll-indicator"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 3.5 }}
+        transition={{ duration: 0.8, delay: 3.5, ease: smoothEase }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-[#F5DAA7]"
       >
         <motion.div 
+          key="hero-scroll-line"
           animate={{ scaleY: [1, 1.2, 1] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ 
+            duration: 2, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            repeatType: "loop"
+          }}
           className="w-px h-16 bg-[#F5DAA7] mb-4 opacity-60 origin-top"
         ></motion.div>
         <motion.span 
+          key="hero-scroll-text"
           animate={{ opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ 
+            duration: 2, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            repeatType: "loop"
+          }}
           className="text-sm tracking-widest font-light"
         >
           SCROLL

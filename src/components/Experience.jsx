@@ -1,12 +1,33 @@
 import { motion } from 'framer-motion'
 
+// Smooth easing curve for all animations
+const smoothEase = [0.25, 0.1, 0.25, 1]
+
 const Experience = () => {
   const experiences = [
     {
       id: 1,
+      title: "Junior Backend Developer",
+      company: "ECKLEZIA (Contract Work)",
+      period: "2025 - Present",
+      type: "Contract",
+      description: "Developing custom web applications. That manages and tracks all the Churches and their finaces. One Dashoard fo every need",
+      achievements: [
+        "Built and deployed multiple features applications with Django",
+        "Implemented secure authentication systems and role-based access control",
+        "Created responsive admin dashboards with real-time data visualization",
+        "Handled CRUD oparation for the entire website",
+        "Made and loaded dynamic data system in frontend and back-end",
+        "Handled and designed the front-end and Dashboard",
+      ],
+      technologies: ["Django", "SQLite", "MySQL", "Bootstrape", "Stripe", "Chart.js"],
+      color: "#842A3B"
+    },
+    {
+      id: 2,
       title: "Full Stack Developer",
       company: "Freelance & Contract Work",
-      period: "2023 - Present",
+      period: "2025 - Present",
       type: "Contract/Freelance",
       description: "Developing custom web applications for clients with focus on modern technologies and scalable solutions.",
       achievements: [
@@ -19,10 +40,10 @@ const Experience = () => {
       color: "#842A3B"
     },
     {
-      id: 2,
+      id: 3,
       title: "MERN Stack Developer",
       company: "Self-Directed Projects",
-      period: "2022 - Present",
+      period: "2025 - Present",
       type: "Personal Development",
       description: "Continuously building and improving personal projects to master full-stack development and explore new technologies.",
       achievements: [
@@ -35,10 +56,10 @@ const Experience = () => {
       color: "#842A3B"
     },
     {
-      id: 3,
+      id: 4,
       title: "Web Development Specialist",
       company: "Open Source & Learning",
-      period: "2022 - Present",
+      period: "2025 - Present",
       type: "Continuous Learning",
       description: "Contributing to open-source projects and continuously expanding technical skills through hands-on development.",
       achievements: [
@@ -53,7 +74,7 @@ const Experience = () => {
   ]
 
   return (
-    <section 
+    <section id="experience" 
       className="min-h-screen bg-black relative px-4 md:px-8" 
       style={{ 
         clipPath: 'polygon(0 8%, 100% 0, 100% 92%, 0 100%)', 
@@ -84,7 +105,7 @@ const Experience = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.4, ease: smoothEase }}
           className="text-center mb-20"
         >
           <motion.h2 
@@ -92,7 +113,7 @@ const Experience = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 0.05 }}
+            transition={{ duration: 0.4, delay: 0.02, ease: smoothEase }}
           >
             Professional Experience
           </motion.h2>
@@ -101,14 +122,14 @@ const Experience = () => {
             initial={{ width: 0 }}
             whileInView={{ width: 128 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.15 }}
+            transition={{ duration: 0.5, delay: 0.04, ease: smoothEase }}
           />
           <motion.p
             className="text-gray-400 text-lg mt-6 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.06, ease: smoothEase }}
           >
             Building expertise through hands-on development, client projects, and continuous learning
           </motion.p>
@@ -121,7 +142,7 @@ const Experience = () => {
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.25 }}
+            transition={{ duration: 0.6, delay: 0.08, ease: smoothEase }}
             className="absolute left-4 md:left-8 top-0 bottom-0 w-0.5 bg-[#F5DAA7] origin-top"
           />
 
@@ -135,9 +156,10 @@ const Experience = () => {
                 viewport={{ once: true }}
                 transition={{ 
                   duration: 0.4, 
-                  delay: 0.35 + index * 0.1,
+                  delay: 0.1 + index * 0.05,
                   type: "spring",
-                  stiffness: 100
+                  stiffness: 120,
+                  damping: 15
                 }}
                 className="relative flex items-start space-x-8"
               >
@@ -146,7 +168,7 @@ const Experience = () => {
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.45 + index * 0.1 }}
+                  transition={{ duration: 0.3, delay: 0.12 + index * 0.05, ease: smoothEase }}
                   className="relative z-10 flex-shrink-0"
                 >
                   <motion.div
@@ -168,7 +190,7 @@ const Experience = () => {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.55 + index * 0.1 }}
+                  transition={{ duration: 0.3, delay: 0.35 + index * 0.1 }}
                   className="flex-1 bg-gray-900 border border-gray-700 rounded-lg p-8 relative overflow-hidden"
                 >
                   {/* Background accent */}
@@ -192,7 +214,7 @@ const Experience = () => {
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: 0.65 + index * 0.1 }}
+                      transition={{ duration: 0.3, delay: 0.14 + index * 0.05, ease: smoothEase }}
                     >
                       <div>
                         <h3 className="text-2xl font-bold text-white mb-1">
@@ -227,7 +249,7 @@ const Experience = () => {
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: 0.75 + index * 0.1 }}
+                      transition={{ duration: 0.3, delay: 0.16 + index * 0.05, ease: smoothEase }}
                     >
                       {exp.description}
                     </motion.p>
@@ -238,7 +260,7 @@ const Experience = () => {
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: 0.85 + index * 0.1 }}
+                      transition={{ duration: 0.3, delay: 0.18 + index * 0.05, ease: smoothEase }}
                     >
                       <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wide">
                         Key Achievements
@@ -252,7 +274,8 @@ const Experience = () => {
                             viewport={{ once: true }}
                             transition={{ 
                               duration: 0.2, 
-                              delay: 0.95 + index * 0.1 + achIndex * 0.02 
+                              delay: 0.2 + index * 0.05 + achIndex * 0.01,
+                              ease: smoothEase
                             }}
                             className="flex items-start space-x-3"
                           >
@@ -273,7 +296,7 @@ const Experience = () => {
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: 1.05 + index * 0.1 }}
+                      transition={{ duration: 0.3, delay: 0.22 + index * 0.05, ease: smoothEase }}
                     >
                       <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wide">
                         Technologies Used
@@ -287,7 +310,8 @@ const Experience = () => {
                             viewport={{ once: true }}
                             transition={{ 
                               duration: 0.15, 
-                              delay: 1.15 + index * 0.1 + techIndex * 0.01 
+                              delay: 0.24 + index * 0.05 + techIndex * 0.005,
+                              ease: smoothEase
                             }}
                             className="px-3 py-1 text-xs font-medium border rounded-full"
                             style={{ 
@@ -319,7 +343,7 @@ const Experience = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.3, delay: 1.4 }}
+          transition={{ duration: 0.4, delay: 0.3, ease: smoothEase }}
           className="text-center mt-20"
         >
           <motion.p
@@ -327,7 +351,7 @@ const Experience = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 1.5 }}
+            transition={{ duration: 0.4, delay: 0.35, ease: smoothEase }}
           >
             Ready to bring this experience to your next project
           </motion.p>
@@ -336,7 +360,16 @@ const Experience = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 1.6 }}
+            transition={{ duration: 0.4, delay: 0.4, ease: smoothEase }}
+            onClick={() => {
+              const element = document.getElementById('contact')
+              if (element) {
+                element.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                })
+              }
+            }}
             className="bg-[#F5DAA7] text-black px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-[#F5DAA7]/90 hover:shadow-lg transform hover:scale-105"
           >
             Let's Work Together

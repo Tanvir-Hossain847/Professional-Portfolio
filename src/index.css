@@ -2,6 +2,18 @@
 @plugin "daisyui";
 @import "tailwindcss";
 
+html {
+  scroll-behavior: auto; /* Keep auto for page load, smooth scrolling handled by JS */
+}
+
+/* Smooth scrolling for navigation */
+html.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
 
 .racing{
   font-family: "Racing Sans One", sans-serif;

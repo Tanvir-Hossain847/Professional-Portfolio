@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion'
 
+// Smooth easing curve for all animations
+const smoothEase = [0.25, 0.1, 0.25, 1]
+
 const Projects = () => {
   const projects = [
     {
@@ -96,7 +99,7 @@ const Projects = () => {
   ]
 
   return (
-    <section 
+    <section id="work" 
       className="min-h-screen bg-white relative px-4 md:px-8" 
       style={{ 
         clipPath: 'polygon(0 8%, 100% 0, 100% 92%, 0 100%)', 
@@ -127,7 +130,7 @@ const Projects = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.4, ease: smoothEase }}
           className="text-center mb-20"
         >
           <motion.h2 
@@ -135,7 +138,7 @@ const Projects = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 0.05 }}
+            transition={{ duration: 0.4, delay: 0.02, ease: smoothEase }}
           >
             Featured Projects
           </motion.h2>
@@ -144,14 +147,14 @@ const Projects = () => {
             initial={{ width: 0 }}
             whileInView={{ width: 128 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.5 }}
+            transition={{ duration: 0.4, delay: 0.04, ease: smoothEase }}
           />
           <motion.p
             className="text-gray-600 text-lg mt-6 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.06, ease: smoothEase }}
           >
             A showcase of full-stack applications demonstrating modern web development practices, 
             clean architecture, and user-centered design solutions.
@@ -168,8 +171,11 @@ const Projects = () => {
               viewport={{ once: true }}
               transition={{ 
                 duration: 0.4, 
+                delay: 0.08 + index * 0.05,
                 type: "spring",
-                stiffness: 100
+                stiffness: 120,
+                damping: 15,
+                ease: smoothEase
               }}
               className="group relative"
             >
@@ -194,7 +200,7 @@ const Projects = () => {
                   initial={{ opacity: 0, scale: 1.05 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4}}
+                  transition={{ duration: 0.3, delay: 0.1 + index * 0.05, ease: smoothEase }}
                 >
                   <img 
                     src={project.image} 
@@ -226,7 +232,7 @@ const Projects = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                    transition={{ duration: 0.3, delay: 0.12 + index * 0.05, ease: smoothEase }}
                     className="absolute bottom-4 left-4 right-4"
                   >
                     <h3 className="text-2xl font-bold text-white mb-1 drop-shadow-lg">
@@ -247,7 +253,7 @@ const Projects = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
+                    transition={{ duration: 0.3, delay: 0.14 + index * 0.05, ease: smoothEase }}
                   >
                     <p className="text-gray-700 leading-relaxed">
                       {project.description}
@@ -260,7 +266,7 @@ const Projects = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
+                    transition={{ duration: 0.3, delay: 0.16 + index * 0.05, ease: smoothEase }}
                   >
                     <h4 className="font-semibold text-gray-900 mb-3 text-sm uppercase tracking-wide">Key Features</h4>
                     <div className="grid grid-cols-2 gap-2">
@@ -272,7 +278,8 @@ const Projects = () => {
                           viewport={{ once: true }}
                           transition={{ 
                             duration: 0.2, 
-                            delay: 0.8 + index * 0.1 + featureIndex * 0.02 
+                            delay: 0.18 + index * 0.05 + featureIndex * 0.01,
+                            ease: smoothEase
                           }}
                           className="flex items-start space-x-2 p-2 border-l-2"
                           style={{ borderColor: project.color }}
@@ -293,7 +300,7 @@ const Projects = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.9 + index * 0.1 }}
+                    transition={{ duration: 0.3, delay: 0.2 + index * 0.05, ease: smoothEase }}
                   >
                     <h4 className="font-semibold text-gray-900 mb-3 text-sm uppercase tracking-wide">Technology Stack</h4>
                     <div className="space-y-2">
@@ -311,7 +318,8 @@ const Projects = () => {
                                 viewport={{ once: true }}
                                 transition={{ 
                                   duration: 0.15, 
-                                  delay: 1 + index * 0.1 + techIndex * 0.01 
+                                  delay: 0.22 + index * 0.05 + techIndex * 0.005,
+                                  ease: smoothEase
                                 }}
                                 className="px-2 py-1 text-xs font-medium border transition-all duration-200"
                                 style={{ 
@@ -335,7 +343,7 @@ const Projects = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 1.1 + index * 0.1 }}
+                    transition={{ duration: 0.3, delay: 0.24 + index * 0.05, ease: smoothEase }}
                   >
                     <a
                       href={project.liveLink}
@@ -380,7 +388,7 @@ const Projects = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.3, delay: 1.3 }}
+          transition={{ duration: 0.4, delay: 0.3, ease: smoothEase }}
           className="text-center"
         >
           <motion.p
@@ -388,7 +396,7 @@ const Projects = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 1.4 }}
+            transition={{ duration: 0.4, delay: 0.35, ease: smoothEase }}
           >
             More projects coming soon...
           </motion.p>
@@ -397,7 +405,7 @@ const Projects = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 1.5 }}
+            transition={{ duration: 0.4, delay: 0.4, ease: smoothEase }}
             className="bg-[#842A3B] text-white px-8 py-3 rounded-full font-medium transition-all duration-200 border-2 border-[#842A3B] opacity-50 cursor-not-allowed"
             disabled
           >

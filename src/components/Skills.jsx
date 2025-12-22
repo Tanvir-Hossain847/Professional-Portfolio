@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion'
 
+// Smooth easing curve for all animations
+const smoothEase = [0.25, 0.1, 0.25, 1]
+
 const Skills = () => {
   const skillCategories = [
     {
@@ -53,7 +56,7 @@ const Skills = () => {
   ]
 
   return (
-    <section className="min-h-screen bg-black relative px-8 overflow-hidden" style={{ clipPath: 'polygon(0 15%, 100% 0, 100% 100%, 0 100%)', paddingTop: '120px', paddingBottom: '80px' }}>
+    <section id="skills" className="min-h-screen bg-black relative px-8 overflow-hidden" style={{ clipPath: 'polygon(0 15%, 100% 0, 100% 100%, 0 100%)', paddingTop: '120px', paddingBottom: '80px' }}>
       <div className="max-w-7xl mx-auto">
         {/* Slanted top accent */}
         <div className="absolute top-0 left-0 w-full h-32 pointer-events-none">
@@ -90,7 +93,7 @@ const Skills = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.4, ease: smoothEase }}
           className="text-center mb-20"
         >
           <motion.h2 
@@ -98,7 +101,7 @@ const Skills = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.4, delay: 0.02, ease: smoothEase }}
           >
             Technical Skills
           </motion.h2>
@@ -107,14 +110,14 @@ const Skills = () => {
             initial={{ width: 0 }}
             whileInView={{ width: 128 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.06, ease: smoothEase }}
           />
           <motion.p
             className="text-gray-400 text-lg mt-6 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.4, delay: 0.08, ease: smoothEase }}
           >
             A comprehensive toolkit for building modern, scalable web applications
           </motion.p>
@@ -129,10 +132,11 @@ const Skills = () => {
               whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true }}
               transition={{ 
-                duration: 0.7, 
-                delay: 0.5 + categoryIndex * 0.15,
+                duration: 0.5, 
+                delay: 0.1 + categoryIndex * 0.05,
                 type: "spring",
-                stiffness: 100
+                stiffness: 100,
+                damping: 15
               }}
               className="relative group"
             >
@@ -158,7 +162,7 @@ const Skills = () => {
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.7 + categoryIndex * 0.15 }}
+                  transition={{ duration: 0.3, delay: 0.15 + categoryIndex * 0.05, ease: smoothEase }}
                 >
                   <motion.div
                     animate={{ 
@@ -192,8 +196,9 @@ const Skills = () => {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ 
-                        duration: 0.4, 
-                        delay: 0.8 + categoryIndex * 0.15 + skillIndex * 0.05 
+                        duration: 0.3, 
+                        delay: 0.2 + categoryIndex * 0.05 + skillIndex * 0.02,
+                        ease: smoothEase
                       }}
                       className="relative"
                     >
@@ -228,9 +233,9 @@ const Skills = () => {
                         whileInView={{ scaleY: 1 }}
                         viewport={{ once: true }}
                         transition={{ 
-                          duration: 0.6, 
-                          delay: 1 + categoryIndex * 0.15 + skillIndex * 0.05,
-                          ease: "easeOut"
+                          duration: 0.4, 
+                          delay: 0.25 + categoryIndex * 0.05 + skillIndex * 0.02,
+                          ease: smoothEase
                         }}
                       />
                     </motion.div>
@@ -262,7 +267,7 @@ const Skills = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 1.5 }}
+          transition={{ duration: 0.4, delay: 0.3, ease: smoothEase }}
           className="text-center mt-16"
         >
           <motion.p
@@ -270,7 +275,7 @@ const Skills = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 1.7 }}
+            transition={{ duration: 0.4, delay: 0.35, ease: smoothEase }}
           >
             Constantly learning and adapting to new technologies
           </motion.p>
@@ -281,7 +286,7 @@ const Skills = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 1.9 }}
+            transition={{ duration: 0.4, delay: 0.4, ease: smoothEase }}
           >
             {['⚛️', '🟢', '🐍', '🔥', '📱'].map((icon, index) => (
               <motion.div

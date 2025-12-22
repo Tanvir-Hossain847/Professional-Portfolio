@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 
+// Smooth easing curve for all animations
+const smoothEase = [0.25, 0.1, 0.25, 1]
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -38,28 +41,28 @@ const Contact = () => {
     {
       icon: "📧",
       title: "Email",
-      value: "tanvir.hossain@email.com",
-      link: "mailto:tanvir.hossain@email.com",
+      value: "tanvirhossaintufa@gmail.com",
+      link: "mailto:tanvirhossaintufa@gmail.com",
       description: "Send me an email for project inquiries"
     },
     {
       icon: "💼",
       title: "LinkedIn",
-      value: "linkedin.com/in/tanvir-hossain",
-      link: "https://linkedin.com/in/tanvir-hossain",
+      value: "linkedin.com/in/tanvir-hossain-2a1b52188",
+      link: "www.linkedin.com/in/tanvir-hossain-2a1b52188",
       description: "Connect with me professionally"
     },
     {
       icon: "💻",
       title: "GitHub",
-      value: "github.com/tanvir-hossain",
-      link: "https://github.com/tanvir-hossain",
+      value: "github.com/Tanvir-Hossain847",
+      link: "https://github.com/Tanvir-Hossain847",
       description: "Check out my code repositories"
     }
   ]
 
   return (
-    <section 
+    <section id="contact" 
       className="min-h-screen bg-white relative px-4 md:px-8" 
       style={{ 
         clipPath: 'polygon(0 8%, 100% 0, 100% 100%, 0 100%)', 
@@ -90,7 +93,7 @@ const Contact = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.4, ease: smoothEase }}
           className="text-center mb-20"
         >
           <motion.h2 
@@ -98,7 +101,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 0.05 }}
+            transition={{ duration: 0.4, delay: 0.02, ease: smoothEase }}
           >
             Let's Work Together
           </motion.h2>
@@ -107,14 +110,14 @@ const Contact = () => {
             initial={{ width: 0 }}
             whileInView={{ width: 128 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.15 }}
+            transition={{ duration: 0.4, delay: 0.04, ease: smoothEase }}
           />
           <motion.p
             className="text-gray-600 text-lg mt-6 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.06, ease: smoothEase }}
           >
             Ready to bring your ideas to life? Let's discuss your next project and create something amazing together.
           </motion.p>
@@ -127,14 +130,14 @@ const Contact = () => {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.25 }}
+            transition={{ duration: 0.4, delay: 0.08, ease: smoothEase }}
           >
             <motion.h3 
               className="text-3xl font-bold text-[#842A3B] mb-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: 0.35 }}
+              transition={{ duration: 0.3, delay: 0.1, ease: smoothEase }}
             >
               Get In Touch
             </motion.h3>
@@ -144,7 +147,7 @@ const Contact = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.8 }}
+              transition={{ duration: 0.4, delay: 0.12, ease: smoothEase }}
             >
               I'm always interested in new opportunities, challenging projects, and collaborating with great teams. 
               Whether you have a project in mind or just want to connect, I'd love to hear from you.
@@ -161,7 +164,7 @@ const Contact = () => {
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.5 + index * 0.05 }}
+                  transition={{ duration: 0.3, delay: 0.14 + index * 0.02, ease: smoothEase }}
                   className="group flex items-center space-x-4 p-4 border border-gray-200 rounded-lg hover:border-[#842A3B] hover:shadow-lg transition-all duration-300"
                 >
                   <div className="text-3xl">{method.icon}</div>
@@ -185,7 +188,7 @@ const Contact = () => {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.3 }}
+            transition={{ duration: 0.4, delay: 0.16, ease: smoothEase }}
             className="relative"
           >
             {/* Background geometric shape */}
@@ -207,7 +210,7 @@ const Contact = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: 0.4 }}
+                transition={{ duration: 0.3, delay: 0.18, ease: smoothEase }}
               >
                 Send Message
               </motion.h3>
@@ -219,7 +222,7 @@ const Contact = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.5 }}
+                    transition={{ duration: 0.3, delay: 0.2, ease: smoothEase }}
                   >
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Name *
@@ -230,7 +233,7 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#842A3B] focus:border-[#842A3B] transition-colors"
+                      className="w-full px-4 text-black py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#842A3B] focus:border-[#842A3B] transition-colors"
                       placeholder="Your full name"
                     />
                   </motion.div>
@@ -239,7 +242,7 @@ const Contact = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.55 }}
+                    transition={{ duration: 0.3, delay: 0.22, ease: smoothEase }}
                   >
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Email *
@@ -250,7 +253,7 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#842A3B] focus:border-[#842A3B] transition-colors"
+                      className="w-full text-black px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#842A3B] focus:border-[#842A3B] transition-colors"
                       placeholder="your.email@example.com"
                     />
                   </motion.div>
@@ -261,7 +264,7 @@ const Contact = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.6 }}
+                  transition={{ duration: 0.3, delay: 0.24, ease: smoothEase }}
                 >
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Subject *
@@ -272,7 +275,7 @@ const Contact = () => {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#842A3B] focus:border-[#842A3B] transition-colors"
+                    className="w-full text-black px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#842A3B] focus:border-[#842A3B] transition-colors"
                     placeholder="Project inquiry, collaboration, etc."
                   />
                 </motion.div>
@@ -282,7 +285,7 @@ const Contact = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.65 }}
+                  transition={{ duration: 0.3, delay: 0.26, ease: smoothEase }}
                 >
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Message *
@@ -293,7 +296,7 @@ const Contact = () => {
                     onChange={handleInputChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#842A3B] focus:border-[#842A3B] transition-colors resize-none"
+                    className="w-full text-black px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#842A3B] focus:border-[#842A3B] transition-colors resize-none"
                     placeholder="Tell me about your project, timeline, and requirements..."
                   />
                 </motion.div>
@@ -303,7 +306,7 @@ const Contact = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.7 }}
+                  transition={{ duration: 0.3, delay: 0.28, ease: smoothEase }}
                 >
                   <button
                     type="submit"
@@ -340,7 +343,7 @@ const Contact = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.3, delay: 0.75 }}
+          transition={{ duration: 0.4, delay: 0.3, ease: smoothEase }}
           className="text-center py-16 border-t border-gray-200"
         >
           <motion.h3
@@ -348,7 +351,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 0.85 }}
+            transition={{ duration: 0.4, delay: 0.35, ease: smoothEase }}
           >
             Ready to Start Your Project?
           </motion.h3>
@@ -357,7 +360,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 0.9 }}
+            transition={{ duration: 0.4, delay: 0.4, ease: smoothEase }}
           >
             Let's turn your ideas into reality. I'm here to help you build something extraordinary.
           </motion.p>
@@ -367,7 +370,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 0.95 }}
+            transition={{ duration: 0.4, delay: 0.45, ease: smoothEase }}
           >
             <a
               href="mailto:tanvir.hossain@email.com"

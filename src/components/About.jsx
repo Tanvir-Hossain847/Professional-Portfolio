@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion'
 
+// Smooth easing curve for all animations
+const smoothEase = [0.25, 0.1, 0.25, 1]
+
 const About = () => {
   const skills = [
     {
@@ -30,14 +33,14 @@ const About = () => {
   ]
 
   return (
-    <section className="min-h-screen bg-white relative py-20 px-8" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)' }}>
+    <section id="about" className="min-h-screen bg-white relative py-20 px-8" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)' }}>
       <div className="max-w-6xl mx-auto pb-20">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4, ease: smoothEase }}
           className="text-center mb-16"
         >
           <motion.h2 
@@ -45,7 +48,7 @@ const About = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.4, delay: 0.02, ease: smoothEase }}
           >
             About Me
           </motion.h2>
@@ -54,7 +57,7 @@ const About = () => {
             initial={{ width: 0 }}
             whileInView={{ width: 96 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.04, ease: smoothEase }}
           />
         </motion.div>
 
@@ -65,7 +68,7 @@ const About = () => {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            transition={{ duration: 0.4, delay: 0.03, ease: smoothEase }}
             className="lg:col-span-2"
           >
             <motion.h3 
@@ -73,7 +76,7 @@ const About = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.25 }}
+              transition={{ duration: 0.3, delay: 0.05, ease: smoothEase }}
             >
               Why should you hire me?
             </motion.h3>
@@ -83,7 +86,7 @@ const About = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.4, delay: 0.06, ease: smoothEase }}
             >
               <p>
                 I'm a dedicated MERN stack developer with a passion for creating scalable, 
@@ -102,7 +105,7 @@ const About = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.4 }}
+              transition={{ duration: 0.3, delay: 0.08, ease: smoothEase }}
               className="flex flex-wrap gap-4"
             >
               {['React', 'Node.js', 'Express', 'MongoDB', 'MySQL', 'Django'].map((tech, index) => (
@@ -111,7 +114,7 @@ const About = () => {
                   initial={{ opacity: 0, scale: 0 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.5 + index * 0.05 }}
+                  transition={{ duration: 0.2, delay: 0.1 + index * 0.02, ease: smoothEase }}
                   className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium cursor-pointer transition-colors hover:scale-105 hover:bg-[#842A3B] hover:text-[#F5DAA7]"
                 >
                   {tech}
@@ -125,7 +128,7 @@ const About = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.04, ease: smoothEase }}
             className="flex justify-center lg:justify-start"
           >
             <div className="relative">
@@ -211,7 +214,7 @@ const About = () => {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.08, ease: smoothEase }}
           className="mt-20"
         >
           <motion.h3 
@@ -219,7 +222,7 @@ const About = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+            transition={{ duration: 0.4, delay: 0.1, ease: smoothEase }}
           >
             Core Strengths
           </motion.h3>
@@ -233,10 +236,11 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ 
-                  duration: 0.5, 
+                  duration: 0.4, 
                   type: "spring",
                   stiffness: 100,
-                  delay: index * 0.1
+                  damping: 15,
+                  delay: index * 0.03
                 }}
                 
                 className="group bg-white border border-gray-200 rounded-xl p-6 hover:border-[#F5DAA7] hover:scale-105 transition-all duration-400 cursor-pointer relative overflow-hidden shadow-lg"
@@ -294,7 +298,7 @@ const About = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          transition={{ duration: 0.4, delay: 0.12, ease: smoothEase }}
           className="text-center mt-16"
         >
           <motion.p 
@@ -302,7 +306,7 @@ const About = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.7 }}
+            transition={{ duration: 0.3, delay: 0.14, ease: smoothEase }}
           >
             Ready to bring your ideas to life with clean, scalable code.
           </motion.p>
@@ -311,7 +315,16 @@ const About = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.8 }}
+            transition={{ duration: 0.3, delay: 0.16, ease: smoothEase }}
+            onClick={() => {
+              const element = document.getElementById('contact')
+              if (element) {
+                element.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                })
+              }
+            }}
             whileHover={{ 
               scale: 1.05,
               boxShadow: "0 15px 35px rgba(132, 42, 59, 0.3)",
