@@ -51,8 +51,38 @@ const Skills = () => {
   ]
 
   return (
-    <section className="min-h-screen bg-black relative py-20 px-8 overflow-hidden">
+    <section className="min-h-screen bg-black relative px-8 overflow-hidden" style={{ clipPath: 'polygon(0 15%, 100% 0, 100% 100%, 0 100%)', paddingTop: '120px', paddingBottom: '80px' }}>
       <div className="max-w-7xl mx-auto">
+        {/* Slanted top accent */}
+        <div className="absolute top-0 left-0 w-full h-32 pointer-events-none">
+          <motion.div
+            animate={{ 
+              opacity: [0.15, 0.25, 0.15],
+              scaleX: [1, 1.01, 1]
+            }}
+            transition={{ 
+              duration: 6, 
+              repeat: Infinity, 
+              ease: "easeInOut" 
+            }}
+            className="absolute top-0 w-full h-full bg-gradient-to-b from-[#842A3B]/30 to-transparent"
+            style={{ clipPath: 'polygon(0 0, 100% 30%, 100% 0)' }}
+          />
+          <motion.div
+            animate={{ 
+              opacity: [0.1, 0.2, 0.1],
+              x: [0, 10, 0]
+            }}
+            transition={{ 
+              duration: 10, 
+              repeat: Infinity, 
+              ease: "easeInOut",
+              delay: 2
+            }}
+            className="absolute top-0 w-full h-full bg-gradient-to-b from-[#F5DAA7]/20 to-transparent"
+            style={{ clipPath: 'polygon(0 0, 100% 25%, 100% 0)' }}
+          />
+        </div>
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

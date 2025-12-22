@@ -30,8 +30,8 @@ const About = () => {
   ]
 
   return (
-    <section className="min-h-screen bg-white relative py-20 px-8">
-      <div className="max-w-6xl mx-auto">
+    <section className="min-h-screen bg-white relative py-20 px-8" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)' }}>
+      <div className="max-w-6xl mx-auto pb-20">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -322,6 +322,111 @@ const About = () => {
             Let's Work Together
           </motion.button>
         </motion.div>
+      </div>
+
+      {/* Background Decorative Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Animated circle */}
+        <motion.div
+          animate={{ 
+            rotate: [0, 360],
+            scale: [1, 1.2, 1],
+            opacity: [0.1, 0.2, 0.1]
+          }}
+          transition={{ 
+            duration: 20, 
+            repeat: Infinity, 
+            ease: "linear" 
+          }}
+          className="absolute top-20 right-10 w-32 h-32 border border-[#F5DAA7] rounded-full"
+        />
+        
+        {/* Floating square */}
+        <motion.div
+          animate={{ 
+            y: [0, -30, 0],
+            rotate: [0, 45, 0],
+            opacity: [0.05, 0.15, 0.05]
+          }}
+          transition={{ 
+            duration: 12, 
+            repeat: Infinity, 
+            ease: "easeInOut" 
+          }}
+          className="absolute bottom-32 left-10 w-24 h-24 bg-[#842A3B] rounded-lg transform"
+        />
+        
+        {/* Additional floating elements */}
+        <motion.div
+          animate={{ 
+            x: [0, 20, 0],
+            y: [0, -15, 0],
+            scale: [1, 1.3, 1],
+            opacity: [0.1, 0.3, 0.1]
+          }}
+          transition={{ 
+            duration: 8, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            delay: 2
+          }}
+          className="absolute top-1/2 right-1/4 w-16 h-16 border-2 border-[#F5DAA7] rounded-full"
+        />
+        
+        <motion.div
+          animate={{ 
+            rotate: [0, -360],
+            scale: [1, 0.8, 1],
+            opacity: [0.08, 0.2, 0.08]
+          }}
+          transition={{ 
+            duration: 15, 
+            repeat: Infinity, 
+            ease: "linear",
+            delay: 5
+          }}
+          className="absolute top-3/4 left-1/4 w-20 h-20 bg-[#F5DAA7] rounded-lg transform rotate-45"
+        />
+        
+        {/* Floating dots */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0.2, 0.6, 0.2],
+              scale: [1, 1.5, 1]
+            }}
+            transition={{
+              duration: 4 + i * 0.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 1.2
+            }}
+            className="absolute w-2 h-2 bg-[#842A3B] rounded-full"
+            style={{
+              top: `${10 + i * 15}%`,
+              left: `${5 + i * 12}%`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Slanted transition overlay */}
+      <div className="absolute bottom-0 left-0 w-full h-32 pointer-events-none">
+        <motion.div
+          animate={{ 
+            opacity: [0.1, 0.2, 0.1],
+            scaleX: [1, 1.02, 1]
+          }}
+          transition={{ 
+            duration: 8, 
+            repeat: Infinity, 
+            ease: "easeInOut" 
+          }}
+          className="absolute bottom-0 w-full h-full bg-gradient-to-t from-black/20 to-transparent"
+          style={{ clipPath: 'polygon(0 100%, 100% 70%, 100% 100%)' }}
+        />
       </div>
 
       {/* Background Decorative Elements */}
