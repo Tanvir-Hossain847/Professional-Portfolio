@@ -366,7 +366,7 @@ const Hero = () => {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.7, ease: smoothEase }}
-              className="text-white mb-2"
+              className="text-white mb-2 lg:px-0 px-3"
             >
               Tanvir Hossain
             </motion.div>
@@ -374,7 +374,7 @@ const Hero = () => {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.9, ease: smoothEase }}
-              className="text-[#842A3B] font-medium text-5xl"
+              className="text-[#842A3B] lg:px-0 px-3 font-medium text-5xl"
             >
               MERN Stack Developer
             </motion.div>
@@ -384,7 +384,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.1, ease: smoothEase }}
-            className="text-xl text-gray-300 mb-12 max-w-lg leading-relaxed font-light"
+            className="text-xl lg:px-0 px-3 text-gray-300 mb-12 max-w-lg leading-relaxed font-light"
           >
             Crafting digital experiences with precision and artistry. 
             Where code meets creativity.
@@ -429,7 +429,7 @@ const Hero = () => {
                 transition={{ duration: 0.6, delay: 0.1 }}
               />
               
-              <span className="relative z-10">VIEW WORK</span>
+              <span className="relative z-10 mx-3">VIEW WORK</span>
             </motion.button>
             
             <motion.button
@@ -452,7 +452,7 @@ const Hero = () => {
                 backgroundColor: { duration: 0.2 },
                 color: { duration: 0.2 }
               }}
-              className="relative border-2 border-[#F5DAA7] text-[#F5DAA7] px-6 py-3 font-medium tracking-wide overflow-hidden group"
+              className="relative border-2 mx-3 border-[#F5DAA7] text-[#F5DAA7] px-6 py-3 font-medium tracking-wide overflow-hidden group"
             >
               {/* Animated border glow */}
               <motion.div
