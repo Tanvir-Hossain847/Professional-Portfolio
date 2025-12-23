@@ -1,9 +1,22 @@
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
 
 // Smooth easing curve for all animations
 const smoothEase = [0.25, 0.1, 0.25, 1]
 
 const Projects = () => {
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsDesktop(window.innerWidth >= 768)
+    }
+    
+    checkScreenSize()
+    window.addEventListener('resize', checkScreenSize)
+    
+    return () => window.removeEventListener('resize', checkScreenSize)
+  }, [])
   const projects = [
     {
       id: 1,
@@ -100,15 +113,17 @@ const Projects = () => {
 
   return (
     <section id="work" 
-      className="min-h-screen bg-white relative px-4 md:px-8" 
+      className="min-h-screen bg-white relative px-4 md:px-8 z-20" 
       style={{ 
-        clipPath: 'polygon(0 8%, 100% 0, 100% 92%, 0 100%)', 
+        clipPath: isDesktop 
+          ? 'polygon(0 8%, 100% 0, 100% 92%, 0 100%)' 
+          : 'polygon(0 3%, 100% 0, 100% 97%, 0 100%)',
         paddingTop: '160px', 
         paddingBottom: '160px',
         overflow: 'hidden'
       }}
     >
-      <div className="max-w-7xl mx-auto relative z-10 overflow-hidden">
+      <div className="max-w-7xl mx-auto relative z-30 overflow-hidden pt-12 md:pt-0 pb-8 md:pb-0">
         {/* Slanted top accent */}
         <div className="absolute top-0 left-0 w-full h-32 pointer-events-none z-0">
           <motion.div

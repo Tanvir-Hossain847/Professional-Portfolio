@@ -1,9 +1,22 @@
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
 
 // Smooth easing curve for all animations
 const smoothEase = [0.25, 0.1, 0.25, 1]
 
 const About = () => {
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsDesktop(window.innerWidth >= 768)
+    }
+    
+    checkScreenSize()
+    window.addEventListener('resize', checkScreenSize)
+    
+    return () => window.removeEventListener('resize', checkScreenSize)
+  }, [])
   const skills = [
     {
       title: "1+ year experience in MERN stack development",
@@ -33,8 +46,13 @@ const About = () => {
   ]
 
   return (
-    <section id="about" className="min-h-screen bg-white relative py-20 px-8" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)' }}>
-      <div className="max-w-6xl mx-auto pb-20">
+    <section id="about" className="min-h-screen bg-white relative py-20 px-4 md:px-8 z-20" 
+      style={{ 
+        clipPath: isDesktop 
+          ? 'polygon(0 0, 100% 0, 100% 85%, 0 100%)' 
+          : 'polygon(0 0, 100% 0, 100% 97%, 0 100%)'
+      }}>
+      <div className="max-w-6xl mx-auto pb-20 relative z-30 pt-8 md:pt-0">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

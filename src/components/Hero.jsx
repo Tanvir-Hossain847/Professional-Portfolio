@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 
 // Smooth easing curve for all animations
 const smoothEase = [0.25, 0.1, 0.25, 1]
@@ -18,6 +19,7 @@ const scrollToSection = (sectionId) => {
 }
 
 const Hero = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   return (
     <div id="home" className="min-h-screen bg-black relative overflow-hidden">
       {/* Geometric Background Elements - Isolated animations */}
@@ -220,16 +222,135 @@ const Hero = () => {
 
         {/* Mobile menu button */}
         <motion.button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="md:hidden text-[#F5DAA7] bg-transparent border-none text-xl drop-shadow-lg"
+          className="md:hidden text-[#F5DAA7] bg-transparent border-none text-xl drop-shadow-lg z-[10000] relative"
         >
-          ☰
+          <motion.div
+            animate={{ rotate: isMobileMenuOpen ? 45 : 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {isMobileMenuOpen ? '✕' : '☰'}
+          </motion.div>
         </motion.button>
       </motion.nav>
+
+      {/* Mobile Menu Overlay - Only for Hero Section */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ 
+          opacity: isMobileMenuOpen ? 1 : 0,
+          scale: isMobileMenuOpen ? 1 : 0.95,
+          pointerEvents: isMobileMenuOpen ? 'auto' : 'none'
+        }}
+        transition={{ duration: 0.3, ease: smoothEase }}
+        className="md:hidden fixed inset-0 bg-black/95 backdrop-blur-lg z-[9999]"
+      >
+        <div className="flex flex-col items-center justify-center min-h-screen p-8">
+          {/* Mobile Menu Items */}
+          <div className="space-y-8">
+            {[
+              { name: 'Home', id: 'home' },
+              { name: 'About Me', id: 'about' },
+              { name: 'Skills', id: 'skills' },
+              { name: 'Projects', id: 'work' },
+              { name: 'Experience', id: 'experience' },
+              { name: 'Contact Me', id: 'contact' },
+            ].map((item, index) => (
+              <motion.button
+                key={item.name}
+                onClick={() => {
+                  scrollToSection(item.id)
+                  setIsMobileMenuOpen(false)
+                }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ 
+                  opacity: isMobileMenuOpen ? 1 : 0,
+                  y: isMobileMenuOpen ? 0 : 30
+                }}
+                transition={{ 
+                  duration: 0.4, 
+                  delay: isMobileMenuOpen ? index * 0.1 : 0,
+                  ease: smoothEase 
+                }}
+                whileHover={{ 
+                  scale: 1.1,
+                  color: '#F5DAA7',
+                  textShadow: "0 0 20px rgba(245, 218, 167, 0.8)"
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="block text-center text-2xl font-light text-white tracking-wider cursor-pointer bg-transparent border-none transition-colors duration-300 relative group"
+              >
+                {/* Animated underline */}
+                <motion.div
+                  className="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5 bg-[#F5DAA7]"
+                  initial={{ width: 0 }}
+                  whileHover={{ width: '100%' }}
+                  transition={{ duration: 0.3 }}
+                />
+                
+                {/* Background glow effect */}
+                <motion.div
+                  className="absolute inset-0 bg-[#F5DAA7] rounded-lg opacity-0 group-hover:opacity-10"
+                  initial={{ scale: 0 }}
+                  whileHover={{ scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                
+                <span className="relative z-10 px-6 py-3 block">{item.name}</span>
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Mobile Menu Decorative Elements */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ 
+              opacity: isMobileMenuOpen ? 0.3 : 0,
+              scale: isMobileMenuOpen ? 1 : 0,
+              rotate: [0, 360]
+            }}
+            transition={{ 
+              opacity: { duration: 0.5, delay: 0.3 },
+              scale: { duration: 0.5, delay: 0.3 },
+              rotate: { duration: 20, repeat: Infinity, ease: "linear" }
+            }}
+            className="absolute top-20 right-20 w-32 h-32 border border-[#F5DAA7] rounded-full"
+          />
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ 
+              opacity: isMobileMenuOpen ? 0.2 : 0,
+              scale: isMobileMenuOpen ? 1 : 0,
+              rotate: [0, -360]
+            }}
+            transition={{ 
+              opacity: { duration: 0.5, delay: 0.5 },
+              scale: { duration: 0.5, delay: 0.5 },
+              rotate: { duration: 15, repeat: Infinity, ease: "linear" }
+            }}
+            className="absolute bottom-20 left-20 w-24 h-24 bg-[#842A3B] rounded-lg transform rotate-45"
+          />
+
+          {/* Close instruction */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ 
+              opacity: isMobileMenuOpen ? 0.6 : 0,
+              y: isMobileMenuOpen ? 0 : 20
+            }}
+            transition={{ duration: 0.4, delay: 0.8 }}
+            className="absolute bottom-8 text-center text-sm text-gray-400 tracking-wide"
+          >
+            Tap ✕ to close menu
+          </motion.p>
+        </div>
+      </motion.div>
 
       {/* Hero Content */}
       <div className="relative z-10 flex items-center justify-between min-h-[80vh] px-8 max-w-7xl mx-auto">

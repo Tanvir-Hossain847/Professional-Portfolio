@@ -22,6 +22,7 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home')
   const [isVisible, setIsVisible] = useState(false)
   const [navbarTheme, setNavbarTheme] = useState('dark') // 'dark' or 'light'
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   // Section background mapping
   const sectionThemes = {
@@ -37,10 +38,16 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY
-      const heroHeight = window.innerHeight * 0.5 // Show navbar after 50% of hero section
+      // Show navbar earlier on mobile devices for better accessibility
+      const heroHeight = window.innerHeight * (window.innerWidth < 768 ? 0.3 : 0.5)
       
       // Show/hide navbar based on scroll position
       setIsVisible(scrollPosition > heroHeight)
+      
+      // Close mobile menu when scrolling
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false)
+      }
       
       // Track active section
       const sections = ['home', 'about', 'skills', 'work', 'experience', 'contact']
@@ -60,7 +67,7 @@ const Navbar = () => {
     handleScroll() // Check initial position
 
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [isMobileMenuOpen])
 
   // Dynamic navbar styling based on section theme
   const navbarStyles = navbarTheme === 'light' ? {
@@ -135,8 +142,8 @@ const Navbar = () => {
           <span className="relative z-10">TH</span>
         </motion.button>
 
-        {/* Navigation Links */}
-        <div className="flex space-x-8">
+        {/* Navigation Links - Desktop */}
+        <div className="hidden md:flex space-x-8">
           {[
             { name: 'Home', id: 'home' },
             { name: 'About', id: 'about' },
@@ -191,16 +198,74 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Mobile menu button (for future mobile implementation) */}
+        {/* Mobile menu button */}
         <motion.button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="md:hidden bg-transparent border-none text-xl transition-colors duration-300"
+          className="md:hidden bg-transparent border-none text-xl transition-colors duration-300 z-50 relative"
           style={{ color: navbarStyles.logoColor }}
         >
-          ☰
+          <motion.div
+            animate={{ rotate: isMobileMenuOpen ? 45 : 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {isMobileMenuOpen ? '✕' : '☰'}
+          </motion.div>
         </motion.button>
       </div>
+
+      {/* Mobile Menu */}
+      <motion.div
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ 
+          opacity: isMobileMenuOpen ? 1 : 0,
+          height: isMobileMenuOpen ? 'auto' : 0
+        }}
+        transition={{ duration: 0.3, ease: smoothEase }}
+        className="md:hidden overflow-hidden"
+        style={{
+          background: navbarStyles.background,
+          backdropFilter: navbarStyles.backdropFilter,
+        }}
+      >
+        <div className="px-8 py-4 space-y-4 max-h-[70vh] overflow-y-auto">
+          {[
+            { name: 'Home', id: 'home' },
+            { name: 'About', id: 'about' },
+            { name: 'Skills', id: 'skills' },
+            { name: 'Work', id: 'work' },
+            { name: 'Experience', id: 'experience' },
+            { name: 'Contact', id: 'contact' }
+          ].map((item, index) => (
+            <motion.button
+              key={item.name}
+              onClick={() => {
+                scrollToSection(item.id)
+                setIsMobileMenuOpen(false)
+              }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ 
+                opacity: isMobileMenuOpen ? 1 : 0,
+                x: isMobileMenuOpen ? 0 : -20
+              }}
+              transition={{ 
+                duration: 0.3, 
+                delay: isMobileMenuOpen ? index * 0.1 : 0,
+                ease: smoothEase 
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="block w-full text-left py-3 px-4 rounded-lg font-medium tracking-wide cursor-pointer bg-transparent border-none transition-colors duration-300"
+              style={{ 
+                color: activeSection === item.id ? navbarStyles.textColorActive : navbarStyles.textColor,
+                backgroundColor: activeSection === item.id ? `${navbarStyles.highlightColor}20` : 'transparent'
+              }}
+            >
+              {item.name}
+            </motion.button>
+          ))}
+        </div>
+      </motion.div>
 
       {/* Animated border bottom */}
       <motion.div
