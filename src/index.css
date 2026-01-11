@@ -2,12 +2,7 @@
 @import "tailwindcss";
 
 html {
-  scroll-behavior: auto; /* Keep auto for page load, smooth scrolling handled by JS */
-}
-
-/* Smooth scrolling for navigation */
-html.smooth-scroll {
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* Let Lenis handle smooth scrolling */
 }
 
 body {
@@ -16,4 +11,14 @@ body {
 
 .racing{
   font-family: "Racing Sans One", sans-serif;
+}
+
+/* Ensure loading screen is always on top */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
 }

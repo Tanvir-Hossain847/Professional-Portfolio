@@ -6,6 +6,7 @@ const smoothEase = [0.25, 0.1, 0.25, 1]
 
 const Projects = () => {
   const [isDesktop, setIsDesktop] = useState(false)
+  const [expandedProjects, setExpandedProjects] = useState({})
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -17,11 +18,25 @@ const Projects = () => {
     
     return () => window.removeEventListener('resize', checkScreenSize)
   }, [])
+
+  // Toggle description expansion for a specific project
+  const toggleDescription = (projectId) => {
+    setExpandedProjects(prev => ({
+      ...prev,
+      [projectId]: !prev[projectId]
+    }))
+  }
+
+  // Function to truncate text to approximately 2 lines
+  const truncateText = (text, maxLength = 150) => {
+    if (text.length <= maxLength) return text
+    return text.substring(0, maxLength).trim() + '...'
+  }
   const projects = [
     {
       id: 1,
       name: "Style Decore",
-      description: "A full-stack platform where users can book services, make payments, and track orders. Admin can manage users and assign decorators.",
+      description: "This project is a decoration service booking web application that allows users to book decoration services, make secure payments, and track their orders with ease. Users can browse different decoration packages, place bookings, and manage their orders through a simple and intuitive interface.The platform features role-based dashboards for users, decorators, and administrators. Admins can manage users, services, and bookings, and assign decorators to each order. Decorators can view assigned jobs, update work progress, and track their earnings, ensuring smooth coordination from booking to completion.Built with a modern full-stack stack, the application focuses on a clean UI, secure transactions, and an efficient workflow tailored for real-world decoration services.",
       image: "https://i.ibb.co.com/pcJvqLD/Screenshot-2025-12-15-000939.png",
       features: [
         "User authentication & role-based access",
@@ -43,7 +58,7 @@ const Projects = () => {
     {
       id: 2,
       name: "KrishiLink",
-      description: "Krishi Link is an app that helps farmers sell their crops directly, cutting out the middleman and getting better prices for their produce.",
+      description: "Krishi Link is an agricultural marketplace app designed to bridge the gap between farmers and buyers by enabling direct crop sales. By removing middlemen, the platform helps farmers secure better prices while buyers gain access to fresh produce straight from the source.The application includes user-friendly dashboards for managing listings, orders, and transactions, along with a built-in cart system that allows buyers to add crops, review quantities, and place orders seamlessly. With a clean interface and efficient workflow, Krishi Link makes agricultural trading more transparent, organized, and accessible for everyone involved.",
       image: "https://i.ibb.co.com/zWmqFbL0/Whats-App-Image-2025-12-22-at-9-32-17-PM.jpg",
       features: [
         "Product & inventory management",
@@ -54,9 +69,9 @@ const Projects = () => {
         frontend: ["React", "Tailwind", "React Router"],
         backend: ["Node.js", "Express"],
         database: ["MongoDB"],
-        other: ["Chart.js", "JWT", "Framer Motion, Firebase"]
+        other: ["Firebase", "React Router"]
       },
-      liveLink: "https://assignment-10-8a9e3.web.app/",
+      liveLink: "https://krishilink847.netlify.app/",
       githubLink: "https://github.com/Tanvir-Hossain847/KrishiLink_Client_Side.git",
       color: "#842A3B",
       accent: "#842A3B"
@@ -64,14 +79,12 @@ const Projects = () => {
     {
       id: 3,
       name: "Dragon News",
-      description: "A modern digital newspaper that brings the latest news to your screen in a clean, easy-to-read format.",
+      description: "A modern digital newspaper designed to bring the latest news to users in a clear and engaging format. With well-structured sections, fast loading pages, and a user-friendly layout, it makes staying informed simple and accessible.",
       image: "https://i.ibb.co.com/5wLL7Tg/dragon-news-fb588-web-app-category-1-1.png",
       features: [
         "Team collaboration tools",
-        "Real-time updates",
         "Easy switching between sections",
         "Distraction-free article view",
-        "Politics, World, Business, Sports, Tech, Entertainment",
         "Search by headline, topic, or keyword",
       ],
       techStack: {
@@ -87,25 +100,23 @@ const Projects = () => {
     },
     {
       id: 4,
-      name: "ECKLEZIA",
-      description: "A complete church management app designed to handle every church activity digitally in one secure platform.",
-      image: "https://i.ibb.co.com/tT42L1Ps/Screenshot-2025-12-22-221855.png",
+      name: "GameZone",
+      description: "GameZone is a simple and powerful platform to browse and download games for PlayStation and PC. Discover new releases, explore top titles, and build your game library all in one place. Play more, search less.",
+      image: "https://i.ibb.co.com/S4JZFgGX/game-zone-e1538-web-app.png",
       features: [
-        "Real-time Notification",
-        "Dynamic Data Structure",
-        "Account Section",
-        "User profile management",
-        "Dashboard Statistics",
-        "Comprihensive Task Management System",
+        "Game Browsing Hub",
+        "Instant Downloads",
+        "Modern UI with Tailwind CSS",
+        "Category-Based Navigation",
       ],
       techStack: {
-        frontend: ["Bootstrape", "CSS5"],
-        backend: ["Django", "Python"],
-        database: ["SQLite", "MySQL"],
-        other: ["Cloudinary", "Firebase", "Stripe"]
+        frontend: ["React", "Tailwind"],
+        backend: ["None Used"],
+        database: ["None Used"],
+        other: ["React Router", "Firebase"]
       },
-      liveLink: "https://social-platform-demo.com",
-      githubLink: "https://github.com/tanvir/social-platform",
+      liveLink: "https://game-zone-e1538.web.app/",
+      githubLink: "https://github.com/Tanvir-Hossain847",
       color: "#842A3B",
       accent: "#842A3B"
     }
@@ -262,7 +273,7 @@ const Projects = () => {
 
                 {/* Project Content */}
                 <div className="p-6">
-                  {/* Description */}
+                  {/* Description - Expandable */}
                   <motion.div 
                     className="mb-6"
                     initial={{ opacity: 0, y: 20 }}
@@ -270,9 +281,50 @@ const Projects = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: 0.14 + index * 0.05, ease: smoothEase }}
                   >
-                    <p className="text-gray-700 leading-relaxed">
-                      {project.description}
-                    </p>
+                    <motion.div
+                      animate={{ height: 'auto' }}
+                      transition={{ duration: 0.3, ease: smoothEase }}
+                      className="overflow-hidden"
+                    >
+                      <p className="text-gray-700 leading-relaxed">
+                        {expandedProjects[project.id] 
+                          ? project.description 
+                          : truncateText(project.description)
+                        }
+                      </p>
+                    </motion.div>
+                    
+                    {/* Read More/Less Button */}
+                    {project.description.length > 150 && (
+                      <motion.button
+                        onClick={() => toggleDescription(project.id)}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="mt-3 text-sm font-medium transition-all duration-200 flex items-center gap-1 group"
+                        style={{ color: project.color }}
+                      >
+                        <span>
+                          {expandedProjects[project.id] ? 'Read Less' : 'Read More'}
+                        </span>
+                        <motion.svg
+                          animate={{ 
+                            rotate: expandedProjects[project.id] ? 180 : 0 
+                          }}
+                          transition={{ duration: 0.2 }}
+                          className="w-4 h-4 transition-transform duration-200"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth={2} 
+                            d="M19 9l-7 7-7-7" 
+                          />
+                        </motion.svg>
+                      </motion.button>
+                    )}
                   </motion.div>
 
                   {/* Features - Professional grid */}

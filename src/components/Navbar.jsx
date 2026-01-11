@@ -4,17 +4,20 @@ import { useState, useEffect } from 'react'
 // Smooth easing curve for all animations
 const smoothEase = [0.25, 0.1, 0.25, 1]
 
-// Smooth scroll function with animation preservation
+// Smooth scroll function with Lenis integration
 const scrollToSection = (sectionId) => {
   const element = document.getElementById(sectionId)
   if (element) {
-    // Use requestAnimationFrame to ensure smooth scrolling doesn't interfere with animations
-    requestAnimationFrame(() => {
+    // Check if Lenis is available globally
+    if (window.lenis) {
+      window.lenis.scrollTo(element, { duration: 1.2 })
+    } else {
+      // Fallback to native smooth scroll
       element.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       })
-    })
+    }
   }
 }
 

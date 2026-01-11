@@ -1,25 +1,46 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { FaWhatsapp, FaFacebookF, FaPhone, FaEnvelope } from 'react-icons/fa'
 
 // Smooth easing curve for all animations
 const smoothEase = [0.25, 0.1, 0.25, 1]
 
-// Smooth scroll function with animation preservation
+// Smooth scroll function with Lenis integration
 const scrollToSection = (sectionId) => {
   const element = document.getElementById(sectionId)
   if (element) {
-    // Use requestAnimationFrame to ensure smooth scrolling doesn't interfere with animations
-    requestAnimationFrame(() => {
+    // Check if Lenis is available globally
+    if (window.lenis) {
+      window.lenis.scrollTo(element, { duration: 1.2 })
+    } else {
+      // Fallback to native smooth scroll
       element.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       })
-    })
+    }
   }
 }
 
 const Hero = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isCircleHovered, setIsCircleHovered] = useState(false)
+  const [showCopiedToast, setShowCopiedToast] = useState(false)
+
+  // Phone number to copy
+  const phoneNumber = '01307625962' // Replace with your actual phone number
+
+  // Copy phone number to clipboard
+  const copyPhoneNumber = async (e) => {
+    e.preventDefault()
+    try {
+      await navigator.clipboard.writeText(phoneNumber)
+      setShowCopiedToast(true)
+      setTimeout(() => setShowCopiedToast(false), 2000)
+    } catch (err) {
+      console.error('Failed to copy:', err)
+    }
+  }
   return (
     <div id="home" className="min-h-screen bg-black relative overflow-hidden">
       {/* Geometric Background Elements - Isolated animations */}
@@ -141,7 +162,7 @@ const Hero = () => {
       <motion.nav 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2, ease: smoothEase }}
+        transition={{ duration: 0.8, ease: smoothEase }}
         className="relative z-10 flex justify-between items-center p-8"
       >
         <motion.button
@@ -357,7 +378,7 @@ const Hero = () => {
         {/* Left Content */}
         <div className="flex-1 max-w-2xl">
           <motion.h1 
-            className="text-7xl md:text-8xl font-light leading-none mb-8"
+            className="text-6xl md:text-8xl font-light leading-none mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5, ease: smoothEase }}
@@ -374,7 +395,7 @@ const Hero = () => {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.9, ease: smoothEase }}
-              className="text-[#842A3B] lg:px-0 px-3 font-medium text-5xl"
+              className="text-[#842A3B] lg:px-0 px-3 font-medium text-4xl"
             >
               MERN Stack Developer
             </motion.div>
@@ -432,10 +453,12 @@ const Hero = () => {
               <span className="relative z-10 mx-3">VIEW WORK</span>
             </motion.button>
             
-            <motion.button
+            <motion.a
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              onClick={() => scrollToSection('contact')}
+              href="https://drive.google.com/file/d/17ws-eZtTFpqWUkxWmH4cLvykAr3X0dam/view?usp=drive_link" // Replace with your actual Google Drive link
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ 
                 scale: 1.05,
                 backgroundColor: '#F5DAA7',
@@ -452,7 +475,7 @@ const Hero = () => {
                 backgroundColor: { duration: 0.2 },
                 color: { duration: 0.2 }
               }}
-              className="relative border-2 mx-3 border-[#F5DAA7] text-[#F5DAA7] px-6 py-3 font-medium tracking-wide overflow-hidden group"
+              className="relative border-2 mx-3 border-[#F5DAA7] text-[#F5DAA7] px-6 py-3 font-medium tracking-wide overflow-hidden group inline-block"
             >
               {/* Animated border glow */}
               <motion.div
@@ -475,31 +498,44 @@ const Hero = () => {
                 transition={{ duration: 0.4 }}
               />
               
-              {/* Particle effect */}
-              {[...Array(6)].map((_, i) => (
+              {/* Download icon particles */}
+              {[...Array(4)].map((_, i) => (
                 <motion.div
                   key={i}
                   className="absolute w-1 h-1 bg-[#F5DAA7] rounded-full opacity-0 group-hover:opacity-100"
                   style={{
-                    top: `${20 + Math.random() * 60}%`,
-                    left: `${10 + Math.random() * 80}%`,
+                    top: `${30 + Math.random() * 40}%`,
+                    left: `${20 + Math.random() * 60}%`,
                   }}
                   animate={{
-                    y: [-10, -20, -10],
+                    y: [0, -15, 0],
                     opacity: [0, 1, 0],
-                    scale: [0, 1, 0]
+                    scale: [0, 1.2, 0]
                   }}
                   transition={{
-                    duration: 1.5,
+                    duration: 1.2,
                     repeat: Infinity,
-                    delay: i * 0.1,
+                    delay: i * 0.15,
                     ease: "easeInOut"
                   }}
                 />
               ))}
               
-              <span className="relative z-10">GET IN TOUCH</span>
-            </motion.button>
+              <span className="relative z-10 flex items-center gap-2">
+                <svg 
+                  className="w-4 h-4" 
+                  fill="currentColor" 
+                  viewBox="0 0 20 20"
+                >
+                  <path 
+                    fillRule="evenodd" 
+                    d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" 
+                    clipRule="evenodd" 
+                  />
+                </svg>
+                MY RESUME
+              </span>
+            </motion.a>
           </motion.div>
         </div>
 
@@ -510,89 +546,220 @@ const Hero = () => {
           transition={{ duration: 1, delay: 1.5, ease: smoothEase }}
           className="hidden lg:flex flex-1 justify-center items-center relative"
         >
-          {/* Main Circle - Continuous rotation */}
+          {/* Copied Toast Notification */}
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.8 }}
+            animate={{ 
+              opacity: showCopiedToast ? 1 : 0,
+              y: showCopiedToast ? 0 : 20,
+              scale: showCopiedToast ? 1 : 0.8
+            }}
+            transition={{ duration: 0.3 }}
+            className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-[#25D366] text-white px-4 py-2 rounded-lg text-sm font-medium z-50 whitespace-nowrap"
+            style={{ pointerEvents: 'none' }}
+          >
+            📋 Phone number copied!
+          </motion.div>
+
+          {/* Main Circle - Stops rotation on hover */}
           <motion.div 
             key="hero-main-circle"
             initial={{ opacity: 0, scale: 0 }}
             animate={{ 
               opacity: 1, 
               scale: 1,
-              rotate: 360
+              rotate: isCircleHovered ? 0 : 360
             }}
+            onMouseEnter={() => setIsCircleHovered(true)}
+            onMouseLeave={() => setIsCircleHovered(false)}
             transition={{ 
               opacity: { duration: 1, delay: 1.7, ease: "easeOut" },
               scale: { duration: 1, delay: 1.7, ease: "easeOut" },
-              rotate: { 
-                duration: 8, 
-                repeat: Infinity, 
-                ease: "linear", 
-                delay: 1,
-                repeatType: "loop"
-              }
+              rotate: isCircleHovered 
+                ? { duration: 0.3 }
+                : { 
+                    duration: 8, 
+                    repeat: Infinity, 
+                    ease: "linear", 
+                    delay: 1,
+                    repeatType: "loop"
+                  }
             }}
-            className="w-80 h-80 border border-[#F5DAA7] rounded-full relative"
+            className="w-[28rem] h-[28rem] border border-[#F5DAA7] rounded-full relative"
           >
-            {/* Inner elements - Pulsing animation */}
+            {/* Profile Image Container - Static (doesn't rotate with parent) */}
             <motion.div 
-              key="hero-inner-circle"
+              key="hero-profile-container"
               initial={{ opacity: 0, scale: 0 }}
               animate={{ 
-                opacity: [0.8, 0.4, 0.8], 
-                scale: [1, 1.1, 1] 
+                opacity: isCircleHovered ? 1 : [0.9, 0.7, 0.9], 
+                scale: isCircleHovered ? 1.02 : [1, 1.05, 1],
+                rotate: isCircleHovered ? 0 : -360 // Counter-rotate to stay static
               }}
               transition={{ 
-                opacity: { 
-                  duration: 2, 
-                  repeat: Infinity, 
-                  ease: "easeInOut", 
-                  delay: 3,
-                  repeatType: "loop"
-                },
-                scale: { 
-                  duration: 2, 
-                  repeat: Infinity, 
-                  ease: "easeInOut", 
-                  delay: 3,
-                  repeatType: "loop"
-                }
+                opacity: isCircleHovered 
+                  ? { duration: 0.3 }
+                  : { 
+                      duration: 2, 
+                      repeat: Infinity, 
+                      ease: "easeInOut", 
+                      delay: 3,
+                      repeatType: "loop"
+                    },
+                scale: isCircleHovered 
+                  ? { duration: 0.3 }
+                  : { 
+                      duration: 2, 
+                      repeat: Infinity, 
+                      ease: "easeInOut", 
+                      delay: 3,
+                      repeatType: "loop"
+                    },
+                rotate: isCircleHovered 
+                  ? { duration: 0.3 }
+                  : { 
+                      duration: 8, 
+                      repeat: Infinity, 
+                      ease: "linear", 
+                      delay: 1,
+                      repeatType: "loop"
+                    }
               }}
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-[#842A3B] rounded-full"
-            ></motion.div>
-            
-            {/* Orbiting elements - Continuous orbit */}
-            {[
-              { delay: 2.2, position: '-top-4 left-1/2 transform -translate-x-1/2', size: 'w-8 h-8', orbitDelay: 0 },
-              { delay: 2.4, position: 'top-1/2 -right-4 transform -translate-y-1/2', size: 'w-6 h-6', orbitDelay: 2 },
-              { delay: 2.6, position: '-bottom-4 left-1/2 transform -translate-x-1/2', size: 'w-4 h-4', orbitDelay: 4 },
-              { delay: 2.8, position: 'top-1/2 -left-4 transform -translate-y-1/2', size: 'w-5 h-5', orbitDelay: 6 }
-            ].map((dot, index) => (
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full overflow-hidden border-4 border-[#842A3B] shadow-2xl"
+              style={{
+                boxShadow: '0 0 40px rgba(132, 42, 59, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.2)'
+              }}
+            >
+              {/* Profile Image */}
+              <img
+                src="https://i.ibb.co.com/wNDH0K9D/Gemini-Generated-Image-3d9dm63d9dm63d9d-1.png" // Replace with your actual image path
+                alt="Tanvir Hossain - MERN Stack Developer"
+                className="w-full h-full object-cover"
+                style={{
+                  filter: 'brightness(1.1) contrast(1.1) saturate(1.1)'
+                }}
+                onError={(e) => {
+                  // Fallback if image doesn't load - show initials
+                  e.target.style.display = 'none'
+                  e.target.nextSibling.style.display = 'flex'
+                }}
+              />
+              
+              {/* Fallback initials if image doesn't load */}
+              <div 
+                className="w-full h-full bg-gradient-to-br from-[#842A3B] to-[#6d2230] flex items-center justify-center text-6xl font-bold text-[#F5DAA7] tracking-wider"
+                style={{ display: 'none' }}
+              >
+                TH
+              </div>
+              
+              {/* Subtle overlay for better contrast */}
+              <div 
+                className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none"
+              />
+              
+              {/* Animated border glow */}
               <motion.div
+                className="absolute inset-0 rounded-full border-2 border-[#F5DAA7] opacity-0"
+                animate={{
+                  opacity: isCircleHovered ? 0.6 : [0, 0.3, 0],
+                  scale: isCircleHovered ? 1 : [1, 1.05, 1]
+                }}
+                transition={{
+                  duration: isCircleHovered ? 0.3 : 3,
+                  repeat: isCircleHovered ? 0 : Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+            </motion.div>
+            
+            {/* Orbiting Social Media Icons */}
+            {[
+              { 
+                icon: FaWhatsapp, 
+                position: '-top-7 left-1/2 transform -translate-x-1/2', 
+                size: 'w-12 h-12', 
+                orbitDelay: 0,
+                link: 'https://wa.me/01307625962',
+                bgColor: '#25D366',
+                hoverColor: '#128C7E',
+                isPhone: false
+              },
+              { 
+                icon: FaFacebookF, 
+                position: 'top-1/2 -right-7 transform -translate-y-1/2', 
+                size: 'w-12 h-12', 
+                orbitDelay: 2,
+                link: 'https://www.facebook.com/profile.php?id=61585337956146',
+                bgColor: '#1877F2',
+                hoverColor: '#0d5fc7',
+                isPhone: false
+              },
+              { 
+                icon: FaPhone, 
+                position: '-bottom-7 left-1/2 transform -translate-x-1/2', 
+                size: 'w-12 h-12', 
+                orbitDelay: 4,
+                link: '#',
+                bgColor: '#842A3B',
+                hoverColor: '#6d2230',
+                isPhone: true
+              },
+              { 
+                icon: FaEnvelope, 
+                position: 'top-1/2 -left-7 transform -translate-y-1/2', 
+                size: 'w-12 h-12', 
+                orbitDelay: 6,
+                link: 'mailto:tanvirhossaintufa@gmail.com',
+                bgColor: '#F5DAA7',
+                hoverColor: '#e5c78a',
+                isPhone: false
+              }
+            ].map((item, index) => (
+              <motion.a
                 key={`hero-orbit-${index}`}
+                href={item.isPhone ? '#' : item.link}
+                target={item.link.startsWith('http') ? '_blank' : '_self'}
+                rel="noopener noreferrer"
+                onClick={item.isPhone ? copyPhoneNumber : undefined}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ 
                   opacity: 1, 
-                  scale: [1, 1.3, 1],
-                  rotate: 360
+                  scale: isCircleHovered ? 1.1 : [1, 1.15, 1]
                 }}
+                whileHover={{ 
+                  scale: 1.5,
+                  boxShadow: `0 0 35px ${item.bgColor}90`,
+                  rotate: isCircleHovered ? 0 : -360
+                }}
+                whileTap={{ scale: 0.95 }}
                 transition={{ 
-                  opacity: { duration: 0.5, delay: dot.delay },
-                  scale: { 
-                    duration: 1.5, 
-                    repeat: Infinity, 
-                    ease: "easeInOut", 
-                    delay: 3 + dot.orbitDelay,
-                    repeatType: "loop"
-                  },
-                  rotate: { 
-                    duration: 10, 
-                    repeat: Infinity, 
-                    ease: "linear", 
-                    delay: 3 + dot.orbitDelay,
-                    repeatType: "loop"
-                  }
+                  opacity: { duration: 0.5, delay: 2.2 + index * 0.2 },
+                  scale: isCircleHovered 
+                    ? { duration: 0.3 }
+                    : { 
+                        duration: 2, 
+                        repeat: Infinity, 
+                        ease: "easeInOut", 
+                        delay: 3 + item.orbitDelay * 0.3,
+                        repeatType: "loop"
+                      }
                 }}
-                className={`absolute ${dot.position} ${dot.size} ${index % 2 === 0 ? 'bg-[#F5DAA7]' : 'bg-[#842A3B]'} rounded-full`}
-              ></motion.div>
+                className={`absolute ${item.position} ${item.size} rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 pointer-events-auto`}
+                style={{ 
+                  backgroundColor: item.bgColor,
+                  boxShadow: `0 6px 20px ${item.bgColor}40`
+                }}
+                title={item.isPhone ? 'Click to copy phone number' : ''}
+              >
+                <item.icon 
+                  className="text-white" 
+                  style={{ 
+                    fontSize: '1.4rem',
+                    color: index === 3 ? '#000000' : '#ffffff'
+                  }} 
+                />
+              </motion.a>
             ))}
           </motion.div>
 

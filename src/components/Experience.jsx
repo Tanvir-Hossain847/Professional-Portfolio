@@ -38,22 +38,6 @@ const Experience = () => {
     },
     {
       id: 2,
-      title: "Full Stack Developer",
-      company: "Freelance & Contract Work",
-      period: "2025 - Present",
-      type: "Contract/Freelance",
-      description: "Developing custom web applications for clients with focus on modern technologies and scalable solutions.",
-      achievements: [
-        "Built and deployed multiple full-stack applications using MERN and Django",
-        "Implemented secure authentication systems and role-based access control",
-        "Created responsive admin dashboards with real-time data visualization",
-        "Delivered projects on time with 100% client satisfaction rate"
-      ],
-      technologies: ["React", "Node.js", "Django", "MongoDB", "MySQL", "Express.js"],
-      color: "#842A3B"
-    },
-    {
-      id: 3,
       title: "MERN Stack Developer",
       company: "Self-Directed Projects",
       period: "2025 - Present",
@@ -65,25 +49,9 @@ const Experience = () => {
         "Implemented secure payment systems using Stripe integration",
         "Gained expertise in database design and API development"
       ],
-      technologies: ["React", "TypeScript", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+      technologies: ["React", "JavaScript", "Node.js", "Stripe", "Chart.js", "Express", "MongoDB", "Tailwind CSS"],
       color: "#842A3B"
     },
-    {
-      id: 4,
-      title: "Web Development Specialist",
-      company: "Open Source & Learning",
-      period: "2025 - Present",
-      type: "Continuous Learning",
-      description: "Contributing to open-source projects and continuously expanding technical skills through hands-on development.",
-      achievements: [
-        "Contributed to open-source projects and community development",
-        "Mastered version control with Git and collaborative development",
-        "Learned and implemented modern deployment strategies (Vercel, Netlify)",
-        "Built responsive, accessible web applications following best practices"
-      ],
-      technologies: ["Git", "GitHub", "Vercel", "Netlify", "Firebase", "REST APIs"],
-      color: "#842A3B"
-    }
   ]
 
   return (

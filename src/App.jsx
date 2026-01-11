@@ -1,4 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import Lenis from 'lenis'
+import Loading from './components/Loading'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -8,24 +11,43 @@ import Experience from './components/Experience'
 import Contact from './components/Contact'
 
 function App() {
-  // Auto scroll to top on page load/reload - Enhanced version
+  const [isLoading, setIsLoading] = useState(true)
+  const [isContentReady, setIsContentReady] = useState(false)
+
+  // Initialize Lenis smooth scrolling
   useEffect(() => {
-    // Function to scroll to top
+    // Initialize Lenis
+    const lenis = new Lenis({
+      duration: 1.2, // Duration of the smooth scroll animation
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing function
+      direction: 'vertical', // Scroll direction
+      gestureDirection: 'vertical', // Gesture direction
+      smooth: true, // Enable smooth scrolling
+      mouseMultiplier: 1, // Mouse wheel sensitivity
+      smoothTouch: false, // Disable smooth scrolling on touch devices for better performance
+      touchMultiplier: 2, // Touch sensitivity
+      infinite: false, // Disable infinite scrolling
+    })
+
+    // Make Lenis globally available
+    window.lenis = lenis
+
+    // Animation frame loop for Lenis
+    function raf(time) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+    requestAnimationFrame(raf)
+
+    // Auto scroll to top on page load/reload
     const scrollToTop = () => {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'auto' // Instant scroll, no smooth animation
-      })
-      // Fallback for older browsers
-      document.documentElement.scrollTop = 0
-      document.body.scrollTop = 0
+      lenis.scrollTo(0, { immediate: true })
     }
     
     // Immediate scroll to top
     scrollToTop()
     
-    // Set scroll restoration to manual to prevent browser from restoring position
+    // Set scroll restoration to manual
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual'
     }
@@ -37,25 +59,62 @@ function App() {
     const handleLoad = () => scrollToTop()
     window.addEventListener('load', handleLoad)
 
-    // Add smooth scroll class for navigation
-    document.documentElement.classList.add('smooth-scroll')
-    
+    // Cleanup function
     return () => {
       clearTimeout(timer)
       window.removeEventListener('load', handleLoad)
-      document.documentElement.classList.remove('smooth-scroll')
+      window.lenis = null // Clean up global reference
+      lenis.destroy() // Clean up Lenis instance
     }
   }, [])
 
+  // Handle loading completion
+  useEffect(() => {
+    // Simulate content loading (fonts, images, etc.)
+    const contentTimer = setTimeout(() => {
+      setIsContentReady(true)
+    }, 2000) // Minimum loading time
+
+    // Also wait for window load event
+    const handleWindowLoad = () => {
+      setIsContentReady(true)
+    }
+
+    if (document.readyState === 'complete') {
+      setIsContentReady(true)
+    } else {
+      window.addEventListener('load', handleWindowLoad)
+    }
+
+    return () => {
+      clearTimeout(contentTimer)
+      window.removeEventListener('load', handleWindowLoad)
+    }
+  }, [])
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false)
+  }
+
   return (
     <div className="App overflow-x-hidden">
-      <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Experience />
-      <Contact />
+      <AnimatePresence mode="wait">
+        {isLoading && isContentReady && (
+          <Loading key="loading" onLoadingComplete={handleLoadingComplete} />
+        )}
+      </AnimatePresence>
+      
+      {!isLoading && (
+        <>
+          <Navbar />
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Experience />
+          <Contact />
+        </>
+      )}
     </div>
   )
 }
