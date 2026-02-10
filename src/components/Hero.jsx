@@ -632,7 +632,7 @@ const Hero = () => {
             >
               {/* Profile Image */}
               <img
-                src="https://i.ibb.co.com/wNDH0K9D/Gemini-Generated-Image-3d9dm63d9dm63d9d-1.png" // Replace with your actual image path
+                src="https://i.ibb.co.com/Zp7427MZ/Whats-App-Image-2026-01-30-at-5-07-21-PM.jpg" // Replace with your actual image path
                 alt="Tanvir Hossain - MERN Stack Developer"
                 className="w-full h-full object-cover"
                 style={{

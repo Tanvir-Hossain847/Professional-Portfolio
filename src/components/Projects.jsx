@@ -48,7 +48,7 @@ const Projects = () => {
         frontend: ["React", "Tailwind", "React Router"],
         backend: ["Node.js", "Express"],
         database: ["MongoDB"],
-        other: ["Stripe",, "Chart.js", "JWT", "Framer Motion", "Firebase"]
+        other: ["Stripe", "Chart.js", "JWT", "Framer Motion", "Firebase"]
       },
       liveLink: "https://style-decor-d89db.web.app/",
       githubLink: "https://github.com/Tanvir-Hossain847/Decore-Manage-Client_side-.git",
@@ -100,23 +100,23 @@ const Projects = () => {
     },
     {
       id: 4,
-      name: "GameZone",
-      description: "GameZone is a simple and powerful platform to browse and download games for PlayStation and PC. Discover new releases, explore top titles, and build your game library all in one place. Play more, search less.",
-      image: "https://i.ibb.co.com/S4JZFgGX/game-zone-e1538-web-app.png",
+      name: "EndTask",
+      description: "EndTask is a full-stack web application designed to manage real-world project execution in a structured, transparent, and scalable way. The platform focuses on turning loosely managed freelance or contract work into an organized workflow where tasks, submissions, and approvals are handled within a single system.",
+      image: "https://i.ibb.co.com/mVxXjFxR/Screenshot-2026-02-10-133356.png",
       features: [
-        "Game Browsing Hub",
-        "Instant Downloads",
-        "Modern UI with Tailwind CSS",
-        "Category-Based Navigation",
+        "Role-based and task management",
+        "Secure file uploads with Cloudinary",
+        "Backend-validated workflows",
+        "Authentication and protected routes",
       ],
       techStack: {
-        frontend: ["React", "Tailwind"],
-        backend: ["None Used"],
-        database: ["None Used"],
-        other: ["React Router", "Firebase"]
+        frontend: ["Next.js", "Tailwind", "GSAP", "Lenis"],
+        backend: ["Next.js API Routes", "MongoDB", "Firebase"],
+        database: ["MongoDB", "Cloudinary"],
+        other: ["React Icons" , "Framer Motion"]
       },
-      liveLink: "https://game-zone-e1538.web.app/",
-      githubLink: "https://github.com/Tanvir-Hossain847",
+      liveLink: "https://end-task.vercel.app/",
+      githubLink: "https://github.com/Tanvir-Hossain847/EndTask.git",
       color: "#842A3B",
       accent: "#842A3B"
     }
